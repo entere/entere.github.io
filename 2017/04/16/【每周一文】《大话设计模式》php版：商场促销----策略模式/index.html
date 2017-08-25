@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>【每周一文】《大话设计模式》php版：策略模式 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面大话设计模式是伍迷写的一本关于设计模式的书，这是我看过的最好的关于设计模式的书，没有之一。书中的示例是基于 C# 语言的。我把代码部分改成了 PHP 版的，以方便 PHP 程序猿查看。以下文字内容来源于《大话设计模式》此书，只不过把代码换成了 PHP 。 Java 版请看这里">
+<meta name="keywords" content="设计模式,策略模式,大话设计模式php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【每周一文】《大话设计模式》php版：策略模式">
+<meta property="og:url" content="http://entere.github.com/2017/04/16/【每周一文】《大话设计模式》php版：商场促销----策略模式/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="写在前面大话设计模式是伍迷写的一本关于设计模式的书，这是我看过的最好的关于设计模式的书，没有之一。书中的示例是基于 C# 语言的。我把代码部分改成了 PHP 版的，以方便 PHP 程序猿查看。以下文字内容来源于《大话设计模式》此书，只不过把代码换成了 PHP 。 Java 版请看这里">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201006/19/0_1276989870q5S1.gif">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201006/19/0_12769899720BOF.gif">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201006/19/0_1276990048DO8H.gif">
+<meta property="og:updated_time" content="2017-07-29T04:02:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【每周一文】《大话设计模式》php版：策略模式">
+<meta name="twitter:description" content="写在前面大话设计模式是伍迷写的一本关于设计模式的书，这是我看过的最好的关于设计模式的书，没有之一。书中的示例是基于 C# 语言的。我把代码部分改成了 PHP 版的，以方便 PHP 程序猿查看。以下文字内容来源于《大话设计模式》此书，只不过把代码换成了 PHP 。 Java 版请看这里">
+<meta name="twitter:image" content="http://hi.csdn.net/attachment/201006/19/0_1276989870q5S1.gif">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-【每周一文】《大话设计模式》php版：商场促销----策略模式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/16/【每周一文】《大话设计模式》php版：商场促销----策略模式/" class="article-date">
+  	<time datetime="2017-04-16T13:36:23.000Z" itemprop="datePublished">2017-04-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【每周一文】《大话设计模式》php版：策略模式
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大话设计模式php/">大话设计模式php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略模式/">策略模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>大话设计模式是伍迷写的一本关于设计模式的书，这是我看过的最好的关于设计模式的书，没有之一。书中的示例是基于 C# 语言的。我把代码部分改成了 PHP 版的，以方便 PHP 程序猿查看。以下文字内容来源于《大话设计模式》此书，只不过把代码换成了 PHP 。 <a href="http://blog.csdn.net/monkey_d_meng/article/details/5681174" target="_blank" rel="external">Java 版请看这里</a></p>
+<a id="more"></a> 
+<p><strong>时间：2月27日22点  地点：大鸟房间  人物：小菜、大鸟</strong></p>
+<h1 id="2-1-商场收银软件"><a href="#2-1-商场收银软件" class="headerlink" title="2.1 商场收银软件"></a>2.1 商场收银软件</h1><p>“小菜，给你出个作业，做一个商场收银软件，营业员根据客户所购买商品的单价和数量，向客户收费。”</p>
+<p>“就这个？木问题。”小菜说，“用两个文本框来输入单价和数量，一个确定按键来算出每种商品的费用，用个列表框来记录商品的清单，一个标签来记录总计，对，还需要一个重置控制来重新开始，不就行了？！”</p>
+<p>商场收银系统 v1.0 关键代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">//Cash.php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cash</span>  </span>&#123;  </div><div class="line">    <span class="keyword">private</span> $total = <span class="number">0</span>;  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">submit</span><span class="params">($num, $price)</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        $totalPrices = $num * $price;  </div><div class="line">        <span class="keyword">$this</span>-&gt;total += $totalPrices;  </div><div class="line">        printf(<span class="string">"单价：%s，数量：%s，合计：%s"</span>, $price, $num, $totalPrices);   </div><div class="line">    &#125;  </div><div class="line">&#125; </div><div class="line">$obj = <span class="keyword">new</span> Cash();</div><div class="line">$obj-&gt;submit(<span class="number">2</span>,<span class="number">39</span>);</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>“大鸟，”小菜叫道，“来看看，这不就是你要的收银软件吗？我不到半个小时就搞定了啦。”</p>
+<p>“哈哈，挺快的嘛。”大鸟说着，看了看小菜的代码。接着说：“现在我要求商场对商品搞活动，所有的商品打 8 折。”</p>
+<p>“那不就是在 totalPrices 后面乘以个 0.8 吗？”</p>
+<p>“小子，难道商场活动结束，不打折了，你还要再改一遍代码，然后再用改后的程序把所有的机器全部安装一次吗？再说，还有可能因为周年庆，打五折的情况，怎么办？”<br>小菜不好意思道：“啊，我想的是简单了点。其实呢，只要增加一个下拉菜单选项框就可以解决你说的问题啦。”</p>
+<p>大鸟笑而不语。</p>
+<h1 id="2-2-增加打折"><a href="#2-2-增加打折" class="headerlink" title="2.2 增加打折"></a>2.2 增加打折</h1><p>商场收银系统 v1.1 关键代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">//Cash.php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cash</span>  </span>&#123;  </div><div class="line">    <span class="keyword">private</span> $total = <span class="number">0</span>; </div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">submit</span><span class="params">($rebateCondition, $num, $price)</span>  </span></div><div class="line"><span class="function">    </span>&#123; </div><div class="line">        $totalPrices = <span class="number">0</span>;  </div><div class="line">        <span class="keyword">switch</span> ($rebateCondition)  </div><div class="line">        &#123;  </div><div class="line">            <span class="keyword">case</span> <span class="string">"正常收费"</span>:  </div><div class="line">                $totalPrices = $num * $price;  </div><div class="line">                <span class="keyword">break</span>;  </div><div class="line">            <span class="keyword">case</span> <span class="string">"打8折"</span>:  </div><div class="line">                $totalPrices = $num * $price * <span class="number">0.8</span>;  </div><div class="line">                <span class="keyword">break</span>;  </div><div class="line">            <span class="keyword">case</span> <span class="string">"打7折"</span>:  </div><div class="line">                $totalPrices = $num * $price * <span class="number">0.7</span>;  </div><div class="line">                <span class="keyword">break</span>;  </div><div class="line">            <span class="keyword">case</span> <span class="string">"打5折"</span>:  </div><div class="line">                $totalPrices = $num * $price * <span class="number">0.5</span>;  </div><div class="line">                <span class="keyword">break</span>; </div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                $totalPrices = $num * $price;</div><div class="line">                <span class="keyword">break</span>; </div><div class="line">        &#125;   </div><div class="line">          </div><div class="line">        <span class="keyword">$this</span>-&gt;total += $totalPrices;  </div><div class="line">        printf(<span class="string">"单价：%s，数量：%s，折扣方式：%s，合计：%s "</span>, $price, $num, $rebateCondition, $totalPrices);   </div><div class="line">    &#125;  </div><div class="line">&#125; </div><div class="line">$obj = <span class="keyword">new</span> Cash();</div><div class="line">$obj-&gt;submit(<span class="string">"打8折"</span>,<span class="number">2</span>,<span class="number">39</span>);</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>“这下可以了吧，只要我事先把商场可能的打折都做成下拉菜单的样子，就可以了”小菜说道。</p>
+<p>“这比刚才灵活性上是好了，不过重复代码很多，4 个分支语句除了打折多少不同以外几乎完全一样，应该考虑重构一下。不过这还不是最主要的，现在我的需求又来了，商场的活动加大，需要有满300返100的促销算法，你说该怎么办？”</p>
+<p>“满 300 返 100，那要是 700 就要返 200 了？这个必须要写成函数了吧？”</p>
+<p>“小菜啊，看来之前教你的都白教了，这里面看不出来什么名堂吗？”</p>
+<p>“哦！我想起来了，你的意思是简单工厂模式，对对对，我可以先写一下父类，再继承它实现多个打折和反利的子类，复用多态性来完成这个代码。”</p>
+<p>“那你打算写几个子类？”</p>
+<p>“根据需求嘛，比如 8 折、7 折、5 折、满 300 送 100、满 200 送 50…要几个写几个。”</p>
+<p>“小菜又不动脑子了，有必要这样写吗？如果我现在是 3 折，我要满 300 送 80，你难道再去增加子类？你不想想看，这当中哪些是相同的，哪些是不同的？”</p>
+<h1 id="2-3-简单工厂实现"><a href="#2-3-简单工厂实现" class="headerlink" title="2.3 简单工厂实现"></a>2.3 简单工厂实现</h1><p>大鸟：“对的，这里打折基本都是一样的，只要有个初始化参数就可以了。满几送几的，需要两个参数才行，明白，现在看来不麻烦了。”</p>
+<p>大鸟：“面向对象的编程，并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同的属性和功能的对象的抽象集合才是类。打1折和打9折只是形式不同，抽象分析出来，所有的打折算法都是一样的，所以打折算法应该是一个类。好了，空话说的太多了，写出来才是硬道理。”</p>
+<p>大约1个小时后，小菜交出了第三份作业。</p>
+<p>代码结构图</p>
+<p><img src="http://hi.csdn.net/attachment/201006/19/0_1276989870q5S1.gif" alt="代码结构图"></p>
+<p>ICashSuper.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>;</div><div class="line"></div><div class="line"><span class="comment">//现金收钱接口 </span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ICashSuper</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 计算价钱</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span>  double $money </span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> [type]        [description]</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">acceptCash</span><span class="params">($money)</span></span>;</div><div class="line"></div><div class="line"></div><div class="line">&#125; </div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>CashNormal.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">ICashSuper</span>;</div><div class="line"></div><div class="line"><span class="comment">// 正常收钱策略  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CashNormal</span> <span class="keyword">implements</span> <span class="title">ICashSuper</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 返回商品正常价，好东西不打折 </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span>  [double] $money 商品正常价</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> [double]        返回正常价</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">acceptCash</span><span class="params">($money)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> $money;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>CashRebate.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">ICashSuper</span>;</div><div class="line"></div><div class="line"><span class="comment">// 折扣收取策略  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CashRebate</span> <span class="keyword">implements</span> <span class="title">ICashSuper</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> $_moneyRebate = <span class="number">1</span>; <span class="comment">//折扣点数 0&lt;$_moneyRebate&lt;=1</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($moneyRebate)</span> </span>&#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;_moneyRebate = $moneyRebate;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 计算折扣后的报价 </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span>  double $money 商品原价</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> double        返回折扣后的报价</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">acceptCash</span><span class="params">($money)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_moneyRebate * $money;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>CashReturn.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">ICashSuper</span>;</div><div class="line"><span class="comment">// 返利策略  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CashReturn</span> <span class="keyword">implements</span> <span class="title">ICashSuper</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> $_moneyCondition = <span class="number">0</span>;<span class="comment">//返利条件</span></div><div class="line">    <span class="keyword">private</span> $_moneyReturn = <span class="number">0</span>;<span class="comment">//返利钱数</span></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 比如满300减100</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span>  double $moneyCondition 300</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span>  double $moneyReturn     100</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span>                 </span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($moneyCondition, $moneyReturn)</span> </span>&#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;_moneyCondition = $moneyCondition;</div><div class="line">        <span class="keyword">$this</span>-&gt;_moneyReturn = $moneyReturn;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 返回满300减100后的金额 </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span>  double $money 原价</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> double        满300减100后的金额</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">acceptCash</span><span class="params">($money)</span> </span>&#123;</div><div class="line">        $result = $money;  </div><div class="line">        <span class="keyword">if</span> ($money &gt;= <span class="keyword">$this</span>-&gt;_moneyCondition)  &#123;  </div><div class="line">            $result = $money - intval($money / <span class="keyword">$this</span>-&gt;_moneyCondition) * <span class="keyword">$this</span>-&gt;_moneyReturn;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> $result;  </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>CashFactory.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">//现金收费工厂类</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">CashNormal</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">CashRebate</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">CashReturn</span>;</div><div class="line">  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CashFactory</span>  </span>&#123;  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">createCash</span><span class="params">($type)</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        $cs = <span class="keyword">null</span>;  </div><div class="line">        <span class="keyword">if</span> (<span class="string">"正常收费"</span> == $type)  &#123;  </div><div class="line">            $cs = <span class="keyword">new</span> CashNormal();  </div><div class="line">        &#125;  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"满300返100"</span> == $type)  &#123;  </div><div class="line">            $cs = <span class="keyword">new</span> CashReturn(<span class="number">300</span>, <span class="number">100</span>);  </div><div class="line">        &#125;  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"打8折"</span> == $type)  &#123;  </div><div class="line">            $cs = <span class="keyword">new</span> CashRebate(<span class="number">0.8</span>);  </div><div class="line">        &#125;  </div><div class="line">          </div><div class="line">        <span class="keyword">return</span> $cs;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>Client.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span>  </div><div class="line"><span class="comment">//客户端代码  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">private</span> $total   = <span class="number">0</span>;  </div><div class="line">  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">$this</span>-&gt;consume(<span class="string">"正常收费"</span>, <span class="number">1</span>, <span class="number">1000</span>);  </div><div class="line">        <span class="keyword">$this</span>-&gt;consume(<span class="string">"满300返100"</span>, <span class="number">1</span>, <span class="number">1000</span>);  </div><div class="line">        <span class="keyword">$this</span>-&gt;consume(<span class="string">"打8折"</span>, <span class="number">1</span>, <span class="number">1000</span>);  </div><div class="line">        printf(<span class="string">"总计：%s"</span>, $total);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">consume</span><span class="params">($type, $num, $price)</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        $csuper = CashFactory::createCash(type);  </div><div class="line">        $totalPrices = <span class="number">0</span>;  </div><div class="line">        $totalPrices = $csuper-&gt;acceptCash(num * price);  </div><div class="line">        $total += $totalPrices;  </div><div class="line">        printf(<span class="string">"单价：%s，数量：%s，折扣方式：%s，合计：%s "</span>, $price, $num, $type, $totalPrices); </div><div class="line">    &#125;  </div><div class="line">&#125; </div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>“搞定，这次无论你要怎么改，我都可以简单处理完成。”小菜自信满满地说。</p>
+<p>“是吗？我要的是需要打5折和满500送200的促销活动，如何办？”</p>
+<p>“只要在现金工厂中加两个条件，在在界面的下拉菜单中增加两项即可。”</p>
+<p>“说的不错，如果我现在需要增加一种商场促销手段，满 100 积分 10 点，以后积分到一定时候可以领取奖品如何做？”</p>
+<p>“有了工厂，何难？加一个积分算法，构造方法有两个参数：条件和返点，让它继承 ICashSuper，再到现金工厂增加满 100 积分 10 点的分支条件，再到界面稍加改动就行了。”</p>
+<p>“嗯，不错，你的简单工厂模式运用的很熟练了嘛，简单工厂模式虽然也能解决这个问题，但是这个模式只是解决对象的创建问题，而且由于工厂本身包括了所有的收费方式，商场是可能经常性地更改打折额度和返利额度的，每次维护或扩展收费方式都要改动这个工厂，以致代码需要重新编译部署，这是非常糟糕的处理方式，所以用它不是最好的办法。面对算法的时常变动，应该有更好的办法。好好去研究一下其他的设计模式，你会找到答案的。”</p>
+<p>小菜进入沉思状态…</p>
+<h1 id="2-4-策略模式"><a href="#2-4-策略模式" class="headerlink" title="2.4 策略模式"></a>2.4 策略模式</h1><p>小菜次日找到大鸟：“我找到相关的设计模式了，应该是策略模式（Strategy）。策略模式定义了算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的，不会影响到使用算法的客户。看来商场收银系统应该考虑用策略模式？”</p>
+<p>策略模式（Strategy）：它定义了算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化，不会影响到使用算法的客户。</p>
+<p>“你问我？你说呢？”大鸟笑道：“商场收银时，如何促销，用打折还是返利，其实都是一些算法，用工厂来生成算法对象，这没有错，但算法本身只是一种策略，最重要的是这些算法是随时都可能互相替换的，就这点变化，而封装变化点是我们面向对象的一种很重要的思维方式。我们来看看策略模式的结构图和基本代码。”</p>
+<p>策略模式（Strategy）结构图</p>
+<p><img src="http://hi.csdn.net/attachment/201006/19/0_12769899720BOF.gif" alt="策略模式（Strategy）结构图"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">//Strategy类，定义所有支持的算法的公共接口  </span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Strategy</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">algorithmInterface</span><span class="params">()</span></span>;  </div><div class="line">&#125;  </div><div class="line"><span class="comment">//ConcreteStrategy封装了具体的算法或行为，继承于Strategy  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteStrategyA</span> <span class="keyword">implements</span> <span class="title">Strategy</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">algorithmInterface</span><span class="params">()</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">echo</span> (<span class="string">"算法A实现"</span>);  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteStrategyB</span> <span class="keyword">implements</span> <span class="title">Strategy</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">algorithmInterface</span><span class="params">()</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">echo</span> (<span class="string">"算法B实现"</span>);   </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteStrategyC</span> <span class="keyword">implements</span> <span class="title">Strategy</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">algorithmInterface</span><span class="params">()</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">echo</span> (<span class="string">"算法C实现"</span>);  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="comment">//Context用一个ConcreteStrategy来配置，维护一个对Strategy对象的引用  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">private</span> $strategy;  </div><div class="line">  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($strategy)</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">$this</span>-&gt;strategy = $strategy;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">contextInterface</span><span class="params">()</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">$this</span>-&gt;strategy-&gt;algorithmInterface();  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="comment">//客户端代码  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">private</span> $context = <span class="keyword">null</span>;  </div><div class="line">        $context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStrategyA());  </div><div class="line">        $context-&gt;contextInterface();  </div><div class="line">          </div><div class="line">        $context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStrategyB());  </div><div class="line">        $context-&gt;contextInterface();  </div><div class="line">          </div><div class="line">        $context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStrategyC());  </div><div class="line">        $context-&gt;contextInterface();  </div><div class="line">    &#125;  </div><div class="line">&#125; </div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="2-5-策略模式实现"><a href="#2-5-策略模式实现" class="headerlink" title="2.5 策略模式实现"></a>2.5 策略模式实现</h1><p>小菜：“我明白了，我昨天写的 CashSuper 就是抽象策略，而正常收费 CashNormal、打折收费 CashRebate 和返利收费 CashReturn 就是三个具体策略，也就是策略模式中说的具体算法，对吧？”</p>
+<p>“是的哇，来吧，你模仿策略模式的基本代码，改动一下你的程序。”</p>
+<p>“其实不麻烦的说，原来写的 ICashSuper、CashNormal、CashRebate和 CashReturn 都不用改了，只要加一个 CashContext 类，并改一下客户端就可以了。”</p>
+<p>商场收银系统v1.2</p>
+<p>代码结构图</p>
+<p><img src="http://hi.csdn.net/attachment/201006/19/0_1276990048DO8H.gif" alt="代码结构图"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">//CashContext类  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CashContext</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">private</span> $cashSuper;  </div><div class="line">  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($cashSuper)</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">$this</span>-&gt;cashSuper = $cashSuper;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">acceptCash</span><span class="params">($money)</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;cashSuper-&gt;acceptCash($money);  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="comment">//客户端代码  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span>  </span></div><div class="line"><span class="class"></span>&#123;  </div><div class="line">    <span class="keyword">private</span> $total   = <span class="number">0</span>;  </div><div class="line">  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        <span class="keyword">$this</span>-&gt;consume(<span class="string">"正常收费"</span>, <span class="number">1</span>, <span class="number">1000</span>);  </div><div class="line">        <span class="keyword">$this</span>-&gt;consume(<span class="string">"满300返100"</span>, <span class="number">1</span>, <span class="number">1000</span>);  </div><div class="line">        <span class="keyword">$this</span>-&gt;consume(<span class="string">"打8折"</span>, <span class="number">1</span>, <span class="number">1000</span>);  </div><div class="line">  </div><div class="line">        printf(<span class="string">"总计：%s"</span>, $total);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">consume</span><span class="params">($type, $num, $price)</span>  </span></div><div class="line"><span class="function">    </span>&#123;  </div><div class="line">        $cashContext = <span class="keyword">null</span>;  </div><div class="line">  </div><div class="line">        <span class="keyword">if</span> (<span class="string">"正常收费"</span> == $type)  </div><div class="line">        &#123;  </div><div class="line">            $cashContext = <span class="keyword">new</span> CashContext(<span class="keyword">new</span> CashNormal());  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"满300返100"</span> == $type)  </div><div class="line">        &#123;  </div><div class="line">            $cashContext = <span class="keyword">new</span> CashContext(<span class="keyword">new</span> CashReturn(<span class="number">300</span>, <span class="number">100</span>));  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"打8折"</span> == $type)  </div><div class="line">        &#123;  </div><div class="line">            $cashContext = <span class="keyword">new</span> CashContext(<span class="keyword">new</span> CashRebate(<span class="number">0.8</span>));  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        $totalPrices = $cashContext-&gt;acceptCash($num * $price);  </div><div class="line">        $total += $totalPrices;  </div><div class="line">          </div><div class="line">        printf(<span class="string">"单价：%s，数量：%s，折扣方式：%s，合计：%s "</span>, $price, $num, $type, $totalPrices);   </div><div class="line">    &#125;  </div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>“大鸟，代码虽然是模仿出来了，但我感觉还是回到原来的老路子了，在客户端判断用哪一个算法。”</p>
+<p>“是的，但是你有没有什么好办法，把这个判断过程从客户端程序中转移走呢？”</p>
+<p>“转移？不明白，原来我用简单工厂模式可以转移，现在这样子如何做？”</p>
+<p>“难道简单工厂就一定要是一个单独的类吗？难道不可以与策略模式的 Context 结合?”</p>
+<p>“我明白了，试试。”</p>
+<h1 id="2-6-策略与简单工厂结合"><a href="#2-6-策略与简单工厂结合" class="headerlink" title="2.6 策略与简单工厂结合"></a>2.6 策略与简单工厂结合</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">CashNormal</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">CashRebate</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">Entere</span>\<span class="title">Pattern</span>\<span class="title">Strategy</span>\<span class="title">CashReturn</span>;</div><div class="line"></div><div class="line"><span class="comment">//工厂与策略结合</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CashContext</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> $_strategy = <span class="keyword">null</span>; <span class="comment">//策略</span></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($type = null)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">isset</span>($type)) &#123;  </div><div class="line">            <span class="keyword">return</span>;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">$this</span>-&gt;setCashStrategy($type);  </div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** </span></div><div class="line"><span class="comment">     * 设置策略（简单工厂与策略模式混合使用） </span></div><div class="line"><span class="comment">     * </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> string $type 类型 </span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> void </span></div><div class="line"><span class="comment">     */</span>  </div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setCashStrategy</span><span class="params">($type)</span> </span>&#123;</div><div class="line">        $cs = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">switch</span> ($type) &#123;</div><div class="line">            <span class="comment">// 正常策略  </span></div><div class="line">            <span class="keyword">case</span> <span class="string">'正常收费'</span>:</div><div class="line">                $cs = <span class="keyword">new</span> CashNormal();</div><div class="line">                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">            <span class="comment">// 打折策略  </span></div><div class="line">            <span class="keyword">case</span> <span class="string">'打8折'</span>:</div><div class="line">                $cs = <span class="keyword">new</span> CashRebate(<span class="number">0.8</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">            <span class="comment">// 返利策略  </span></div><div class="line">            <span class="keyword">case</span> <span class="string">'满300返100'</span>:</div><div class="line">                $cs = <span class="keyword">new</span> CashReturn(<span class="number">300</span>, <span class="number">100</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            </div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                $cs = <span class="keyword">new</span> CashNormal();</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">$this</span>-&gt;_strategy = $cs;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** </span></div><div class="line"><span class="comment">     * 获取结果 </span></div><div class="line"><span class="comment">     * </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> double $money 金额 </span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> double </span></div><div class="line"><span class="comment">     */</span>  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getResult</span><span class="params">($money)</span></span>&#123;  </div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_strategy-&gt;acceptCash($money);  </div><div class="line">    &#125; </div><div class="line"></div><div class="line">     <span class="comment">/** </span></div><div class="line"><span class="comment">     * 获取结果 </span></div><div class="line"><span class="comment">     * </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> string $type 类型 </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> int $num 数量 </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> double $price 单价 </span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> double </span></div><div class="line"><span class="comment">     */</span>  </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getResultAll</span><span class="params">($type, $num, $price)</span></span>&#123;  </div><div class="line">        <span class="keyword">$this</span>-&gt;setCashStrategy($type);  </div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getResult($num * $price);  </div><div class="line">    &#125;   </div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<pre><code class="php">
+<span class="meta">&lt;?php</span>
+
+
+
+<span class="meta">&lt;?php</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>{
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span> </span>{
+
+        $total = <span class="number">0</span>;   
+        $cashContext = <span class="keyword">new</span> CashContext();  
+
+        <span class="comment">// 购买数量  </span>
+        $numA = <span class="number">10</span>;  
+        <span class="comment">// 单价  </span>
+        $priceA = <span class="number">100</span>;  
+        <span class="comment">// 策略模式获取结果  </span>
+        $totalA = $cashContext-&gt;getResultAll(<span class="string">'正常收费'</span>, $numA, $priceA);  
+        <span class="keyword">$this</span>-&gt;display(<span class="string">'A'</span>, <span class="string">'正常收费'</span>, $numA, $priceA, $totalA);  
+
+
+
+        <span class="comment">// 购买数量  </span>
+        $numB = <span class="number">5</span>;  
+        <span class="comment">// 单价  </span>
+        $priceB = <span class="number">100</span>;  
+        <span class="comment">// 打折策略获取结果  </span>
+        $totalB = $cashContext-&gt;getResultAll(<span class="string">'打8折'</span>, $numB, $priceB);  
+        <span class="keyword">$this</span>-&gt;display(<span class="string">'B'</span>, <span class="string">'打8折'</span>, $numB, $priceB, $totalB);  
+
+
+
+        <span class="comment">// 购买数量  </span>
+        $numC = <span class="number">1</span>;  
+        <span class="comment">// 单价  </span>
+        $priceC = <span class="number">400</span>;  
+        <span class="comment">// 返利策略获取结果  </span>
+        $totalC = $cashContext-&gt;getResultAll(<span class="string">'满300返100'</span>, $numC, $priceC);  
+        <span class="keyword">$this</span>-&gt;display(<span class="string">'C'</span>, <span class="string">'满300返100'</span>, $numC, $priceC, $totalC);  
+    }
+
+    <span class="comment">/** </span>
+<span class="comment">     * 打印 </span>
+<span class="comment">     * </span>
+<span class="comment">     * <span class="doctag">@param</span> string $name 商品名 </span>
+<span class="comment">     * <span class="doctag">@param</span> string $type 类型 </span>
+<span class="comment">     * <span class="doctag">@param</span> int $num 数量 </span>
+<span class="comment">     * <span class="doctag">@param</span> double $price 单价 </span>
+<span class="comment">     * <span class="doctag">@return</span> double </span>
+<span class="comment">     */</span>  
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">display</span><span class="params">($name, $type, $num, $price, $total)</span></span>{  
+        <span class="keyword">echo</span> date(<span class="string">'Y-m-d H:i:s'</span>) . <span class="string">",$name,[$type],num:$num,price:$price,total:$total \r\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;  
+    }  
+}
+
+
+<span class="comment">/** </span>
+<span class="comment"> * 程序入口 </span>
+<span class="comment"> */</span>  
+<span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">()</span></span>{  
+    $client = <span class="keyword">new</span> Client();  
+    $client-&gt;main();  
+}  
+
+start();  
+<span class="meta">?&gt;</span>
+</code></pre>
+<p>“嗯，原来简单工厂模式并非只有建一个工厂类的做法，还可以这样子做。此时比刚才的模仿策略模式的写法要清楚多了，客户端代码简单明了。”</p>
+<p>“那和你写的简单工厂客户端代码相比，观察一下，找出它们的不同之外。”</p>
+<pre><code class="php"><span class="meta">&lt;?php</span>
+
+<span class="comment">//简单工厂模式的用法  </span>
+$csuper = CashFactory::createCash(type);    
+$totalPrices = $csuper-&gt;acceptCash($num * $price);  
+
+<span class="comment">//策略模式与简单工厂模式结合的用法  </span>
+$cashContext = <span class="keyword">new</span> CashContext($type); 
+$totalPrices = $cashContext-&gt;acceptCash($num * $price); 
+<span class="meta">?&gt;</span>
+</code></pre>
+<p>“你的意思是，简单工厂模式我需要让客户端认识两个类，CashSuper 和 CashFactory，而策略模式与简单工厂模式结合的用法，客户端就只需要认识一个类 CashContext。耦合度更加降低。”</p>
+<p>“说的木有错，我们在客户端实例化的是 CashContext 的对象，调用的是 CashContext 的方法，这使得具体的收费算法彻底地与客户端分离。连算法的父类 CashSuper 都不让客户端认识了。相当于创建了一个句柄类。”</p>
+<h1 id="2-7-策略模式解析"><a href="#2-7-策略模式解析" class="headerlink" title="2.7 策略模式解析"></a>2.7 策略模式解析</h1><p>大鸟：“回过头来反思一下策略模式，策略模式是一种定义一系列算法的方法，从概念上来看，所有这些算法完成的都是相同的工作，只是实现不同，它可以以相同的方式调用所有的算法，减少了各种算法与使用算法之间的耦合。”</p>
+<p>小菜：“策略模式还有什么优点？”</p>
+<p>大鸟：“策略模式的 Strategy 类层次为 Context 定义了一系列的可供重用的算法或行为。继承有助于析取出这些算法中的公共功能。对于打折、返利或者其他的算法，其实都是对实际商品收费的一种计算方式，通过继承，可以得到它们的公共功能，你说这公共功能指虾米？”</p>
+<p>小菜：“公共的功能就是获得计算费用的结果 getResult，这使得算法间有了抽象的父类 CashSuper。”</p>
+<p>大鸟：“不错，另外一个策略模式的优点是简化了单元测试，因为每个算法都有自己的类，可以通过自己的接口单独测试。”</p>
+<p>小菜：“每个算法可保证它没有错误，修改其中任一个时也不会影响其他的算法，这真是的非常的好。”</p>
+<p>大鸟：“哈，小菜今天表现的不错，我所想的你都想到了。还有，在最开始编程时，不得不在客户端的代码中为了判断用哪一个算法计算而用了if条件分支，这也是正常的。因为当不同的行为堆砌于一个类中，就很难避免使用条件语句来选择合适的行为。将这些行为封装在一个个独立的 Strategy 类中，可以在使用这些行为的类中消除条件语句。就商场收银系统的例子而言，在客户端的代码中就消除条件语句，避免了大量的判断。这是非常重要的进展。你能用一句话来概况这个优点吗？”</p>
+<p>小菜：“策略模式封装了变化。”</p>
+<p>大鸟：“说的非常好，策略模式就是用来封装算法的，但在初中中，我们发现可以用它来封装几乎任何类型的规则，只要在分析过程中听到需要在不同时间应用不同的业务规则，就可以考虑使用策略模式处理这种变化的可能性。”</p>
+<p>小菜：“但我感觉在基本的策略模式中，选择所用具体实现的职责由客户端对象承担，并转给策略模式的 Context 对象。这本身并没有解除客户端需要选择判断的压力，而策略模式与简单工厂模式结合后，选择具体实现的职责也可以由Context来承担，这就最大化地减轻了客户端的职责。”</p>
+<p>大鸟：“是的，这已经比起初的策略模式好胜了，不过，它依然不够完美。”</p>
+<p>小菜：“还有什么不足吗？”</p>
+<p>大鸟：“因为在 CashContext 里还是用到了 if 或 switch，也就是说，如果我们需要增加一种算法，比如满 200 返 50，你就必须要改 CashContext 中的 if 或 switch 代码，这让人感觉很不 happy 的说！”</p>
+<p>小菜：“啊，那你说怎么办，有需求就得改啊，任何需求的变更都是需要成本的。”</p>
+<p>大鸟：“是的哇，但是成本的高低还是有差异的嘛。高手和菜鸟的区别就是高手可以花同样的代价获得最大的收益或者说做同样的事花最小的代价。面对同样的需求，当然是改动越小越好啦。”</p>
+<p>小菜：“你的意思是说，还有更好的办法？”</p>
+<p>大鸟：“当然啦，要不然我怎么会这样说哩，这个办法就是用到了反射技术，不是常有人讲：反射反射，程序员的快乐，不过今天就不讲了，以后会再提它的。”</p>
+<p>“反射真的有这么神奇？”小菜疑惑地望向了远方。</p>
+<p>（注：在抽象工厂模式章节有对反射的讲解）</p>
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a href="https://github.com/entere/pattern" target="_blank" rel="external">本文源码请点此查看</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/17/【每周一文】实现文章转发朋友圈后自动下发红包功能/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【每周一文】实现文章转发朋友圈后自动下发红包功能
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/11/【每周一文】Laravel小伎俩Blade模板之forelse的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【每周一文】Laravel小伎俩Blade模板之forelse的使用</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

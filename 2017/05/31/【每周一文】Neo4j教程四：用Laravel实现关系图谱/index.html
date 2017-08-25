@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>【每周一文】Neo4j教程四：用Laravel实现关系图谱 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言项目需要从零开始构建用户的关系图谱。 而以 MySQL 为代表的关系型数据库和以 MongoDB 为代表的 NoSQL 都不适用于有实时价值的数据关系。经过一系列调研，我们从众多图数据库中选中了 Neo4j 来构建用户图谱。 项目用到了 Laravel 框架（Laravel 为 WEB 艺术家创造的 PHP 框架），Neo4j 提供了 PHP 的 SDK，我们选用了 GraphAware Ne">
+<meta name="keywords" content="图形数据库,Neo4j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【每周一文】Neo4j教程四：用Laravel实现关系图谱">
+<meta property="og:url" content="http://entere.github.com/2017/05/31/【每周一文】Neo4j教程四：用Laravel实现关系图谱/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="前言项目需要从零开始构建用户的关系图谱。 而以 MySQL 为代表的关系型数据库和以 MongoDB 为代表的 NoSQL 都不适用于有实时价值的数据关系。经过一系列调研，我们从众多图数据库中选中了 Neo4j 来构建用户图谱。 项目用到了 Laravel 框架（Laravel 为 WEB 艺术家创造的 PHP 框架），Neo4j 提供了 PHP 的 SDK，我们选用了 GraphAware Ne">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-29T04:02:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【每周一文】Neo4j教程四：用Laravel实现关系图谱">
+<meta name="twitter:description" content="前言项目需要从零开始构建用户的关系图谱。 而以 MySQL 为代表的关系型数据库和以 MongoDB 为代表的 NoSQL 都不适用于有实时价值的数据关系。经过一系列调研，我们从众多图数据库中选中了 Neo4j 来构建用户图谱。 项目用到了 Laravel 框架（Laravel 为 WEB 艺术家创造的 PHP 框架），Neo4j 提供了 PHP 的 SDK，我们选用了 GraphAware Ne">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-【每周一文】Neo4j教程四：用Laravel实现关系图谱" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/31/【每周一文】Neo4j教程四：用Laravel实现关系图谱/" class="article-date">
+  	<time datetime="2017-05-31T14:40:43.000Z" itemprop="datePublished">2017-05-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【每周一文】Neo4j教程四：用Laravel实现关系图谱
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Neo4j/">Neo4j</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图形数据库/">图形数据库</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>项目需要从零开始构建用户的关系图谱。</p>
+<p>而以 MySQL 为代表的关系型数据库和以 MongoDB 为代表的 NoSQL 都不适用于有实时价值的数据关系。经过一系列调研，我们从众多图数据库中选中了 Neo4j 来构建用户图谱。</p>
+<p>项目用到了 Laravel 框架（Laravel 为 WEB 艺术家创造的 PHP 框架），Neo4j 提供了 PHP 的 SDK，我们选用了 <a href="https://github.com/graphaware/neo4j-php-client" target="_blank" rel="external">GraphAware Neo4j PHP Client</a> </p>
+<a id="more"></a>
+<h1 id="安装-neo4j-php-client"><a href="#安装-neo4j-php-client" class="headerlink" title="安装 neo4j-php-client"></a>安装 neo4j-php-client</h1><p>在Laravel 项目根目录执行如下安装命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer require graphaware/neo4j-php-client:^4.0</div></pre></td></tr></table></figure>
+<h1 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h1><p>使用laravel 命令 来导入数据，生成命令文件：MigrateUser2Neo4j.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php artisan make:console MigrateUser2Neo4j</div></pre></td></tr></table></figure>
+<p>在 MigrateUser2Neo4j.php 中编写导入数据的代码，如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">Console</span>\<span class="title">Commands</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Console</span>\<span class="title">Command</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">GraphAware</span>\<span class="title">Neo4j</span>\<span class="title">Client</span>\<span class="title">ClientBuilder</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">DB</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MigrateUser2Neo4j</span> <span class="keyword">extends</span> <span class="title">Command</span></span></div><div class="line"><span class="class"></span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * The name and signature of the console command.</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@var</span> string</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">protected</span> $signature = <span class="string">'noe4j:user &#123;type : node or relation&#125;'</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * The console command description.</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@var</span> string</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">protected</span> $description = <span class="string">'把用户关系导入到neo4j'</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * Create a new command instance.</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">parent</span>::__construct();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * Execute the console command.</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> mixed</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">()</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        $type = <span class="keyword">$this</span>-&gt;argument(<span class="string">'type'</span>);</div><div class="line">        <span class="keyword">if</span>($type == <span class="string">'node'</span>) &#123;</div><div class="line">            <span class="keyword">$this</span>-&gt;migrateNode();</div><div class="line">        &#125; <span class="keyword">elseif</span> ($type == <span class="string">'relation'</span>) &#123;</div><div class="line">            <span class="keyword">$this</span>-&gt;migrateRelation();</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">echo</span> <span class="string">"flase"</span>;</div><div class="line"></div><div class="line">            <span class="comment">//$this-&gt;migrateNode();</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 导入节点，也就是用户</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> [type] [description]</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">migrateNode</span><span class="params">()</span> </span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        $client = ClientBuilder::create()</div><div class="line">            -&gt;addConnection(<span class="string">'default'</span>, <span class="string">'http://neo4j:neo4j_2017test@219.238.250.46:7474'</span>) <span class="comment">// Example for HTTP connection configuration (port is optional)</span></div><div class="line">            <span class="comment">//-&gt;addConnection('bolt', 'bolt://neo4j:password@localhost:7687') // Example for BOLT connection configuration (port is optional)</span></div><div class="line">            -&gt;build();</div><div class="line"></div><div class="line">        $ids = DB::connection(<span class="string">'mongodb'</span>)</div><div class="line">        -&gt;table(<span class="string">'users'</span>)</div><div class="line">        -&gt;select(<span class="string">'uid'</span>,<span class="string">'name'</span>,<span class="string">'nickname'</span>,<span class="string">'avatar'</span>)</div><div class="line">        -&gt;where(<span class="string">'uid'</span>,<span class="string">'&gt;'</span>,<span class="number">63459</span>)</div><div class="line">        -&gt;where(<span class="string">'group_id'</span>,<span class="number">200</span>)</div><div class="line"></div><div class="line">        -&gt;orderBy(<span class="string">'uid'</span>, <span class="string">'asc'</span>)</div><div class="line">        -&gt;get();</div><div class="line">        <span class="keyword">foreach</span> ($ids <span class="keyword">as</span> $key =&gt; $value) &#123;</div><div class="line">            $query = <span class="string">'create (p'</span>.$value[<span class="string">'uid'</span>].<span class="string">':Person &#123;name: "'</span>.$value[<span class="string">'name'</span>].<span class="string">'",nickname:"'</span>.$value[<span class="string">'nickname'</span>].<span class="string">'",avatar:"'</span>.$value[<span class="string">'avatar'</span>].<span class="string">'",uid:'</span>.intval($value[<span class="string">'uid'</span>]).<span class="string">'&#125;);'</span>;</div><div class="line">            $result = $client-&gt;run($query);</div><div class="line">            \Log::info($query.<span class="string">"\r\n"</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 导入关系 也就是用户关系</span></div><div class="line"><span class="comment">     */</span></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">migrateRelation</span><span class="params">()</span> </span>&#123;</div><div class="line">        $client = ClientBuilder::create()</div><div class="line">            -&gt;addConnection(<span class="string">'default'</span>, <span class="string">'http://neo4j:neo4j_2017test@219.238.250.46:7474'</span>) <span class="comment">// Example for HTTP connection configuration (port is optional)</span></div><div class="line">            <span class="comment">//-&gt;addConnection('bolt', 'bolt://neo4j:password@localhost:7687') // Example for BOLT connection configuration (port is optional)</span></div><div class="line">            -&gt;build();</div><div class="line"></div><div class="line">        $ids = DB::connection(<span class="string">'mongodb'</span>)</div><div class="line">            -&gt;table(<span class="string">'users_follow'</span>)</div><div class="line">            -&gt;select(<span class="string">'fans_uid'</span>,<span class="string">'friend_uid'</span>)</div><div class="line">            -&gt;where(<span class="string">'fans_uid'</span>,<span class="string">'&gt;'</span>,<span class="number">604970024</span>)</div><div class="line">            -&gt;orderBy(<span class="string">'fans_uid'</span>, <span class="string">'asc'</span>)</div><div class="line">            <span class="comment">//-&gt;limit(100)</span></div><div class="line">            -&gt;get();</div><div class="line">        <span class="comment">//print_r($ids);exit;</span></div><div class="line">        <span class="keyword">foreach</span> ($ids <span class="keyword">as</span> $key =&gt; $value) &#123;</div><div class="line"></div><div class="line">            $query = <span class="string">'match (p'</span>.$value[<span class="string">'friend_uid'</span>].<span class="string">'),(p'</span>.$value[<span class="string">'fans_uid'</span>].<span class="string">') where p'</span>.$value[<span class="string">'friend_uid'</span>].<span class="string">'.uid='</span>.intval($value[<span class="string">'friend_uid'</span>]).<span class="string">' and p'</span>.$value[<span class="string">'fans_uid'</span>].<span class="string">'.uid='</span>.$value[<span class="string">'fans_uid'</span>].<span class="string">' create (p'</span>.$value[<span class="string">'friend_uid'</span>].<span class="string">')-[:HAS_FANS]-&gt;(p'</span>.$value[<span class="string">'fans_uid'</span>].<span class="string">');'</span>;</div><div class="line">            $result = $client-&gt;run($query);</div><div class="line">            \Log::info($query.<span class="string">"\r\n"</span>);</div><div class="line"></div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>执行如下命令导入节点数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php artisan noe4j:user node</div></pre></td></tr></table></figure>
+<p>执行如下命令导入关系数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php artisan noe4j:user relation</div></pre></td></tr></table></figure>
+<h1 id="Neo4j-应用"><a href="#Neo4j-应用" class="headerlink" title="Neo4j 应用"></a>Neo4j 应用</h1><p>应用一：梳理用户之间的关注关系</p>
+<p>比如：把用户关系导入到 Neo4j 中，查看一下 方兴东 用户关系，具体导入代码：</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/06/【每周一文】Neo4j教程五：微信分享追踪系统的实现/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【每周一文】Neo4j教程五：微信分享追踪系统的实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/22/【每周一文】Neo4j教程三：梳理用户债务关系/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【每周一文】Neo4j教程三：梳理用户债务关系</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

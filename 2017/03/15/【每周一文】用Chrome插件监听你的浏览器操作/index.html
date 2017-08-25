@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>【每周一文】用Chrome插件监听你的浏览器操作 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面前几天接到武阳电话，这丫给我打电话，一定没有好事。果然…… 武阳正在追一90后萌妹子，80后大叔追一90后妹子，有代沟，不知道如何下手。丫的一动歪脑子，想让我帮监控妹子上网行踪，看看妹子都爱看那些话题，说约妹子时有话聊～。切～～ 对于这种无理请求，我一般是直接拉黑的。 “我不就认识你，还是搞电脑的的么”。 “我都30好几的人了，找不到老婆你负责啊”。 “好不容易遇到一喜欢的，你要不帮我，不">
+<meta name="keywords" content="插件,chrome">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【每周一文】用Chrome插件监听你的浏览器操作">
+<meta property="og:url" content="http://entere.github.com/2017/03/15/【每周一文】用Chrome插件监听你的浏览器操作/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="写在前面前几天接到武阳电话，这丫给我打电话，一定没有好事。果然…… 武阳正在追一90后萌妹子，80后大叔追一90后妹子，有代沟，不知道如何下手。丫的一动歪脑子，想让我帮监控妹子上网行踪，看看妹子都爱看那些话题，说约妹子时有话聊～。切～～ 对于这种无理请求，我一般是直接拉黑的。 “我不就认识你，还是搞电脑的的么”。 “我都30好几的人了，找不到老婆你负责啊”。 “好不容易遇到一喜欢的，你要不帮我，不">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://entere.github.com/images/20170315_git_3.png">
+<meta property="og:updated_time" content="2017-07-29T04:02:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【每周一文】用Chrome插件监听你的浏览器操作">
+<meta name="twitter:description" content="写在前面前几天接到武阳电话，这丫给我打电话，一定没有好事。果然…… 武阳正在追一90后萌妹子，80后大叔追一90后妹子，有代沟，不知道如何下手。丫的一动歪脑子，想让我帮监控妹子上网行踪，看看妹子都爱看那些话题，说约妹子时有话聊～。切～～ 对于这种无理请求，我一般是直接拉黑的。 “我不就认识你，还是搞电脑的的么”。 “我都30好几的人了，找不到老婆你负责啊”。 “好不容易遇到一喜欢的，你要不帮我，不">
+<meta name="twitter:image" content="http://entere.github.com/images/20170315_git_3.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-【每周一文】用Chrome插件监听你的浏览器操作" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/15/【每周一文】用Chrome插件监听你的浏览器操作/" class="article-date">
+  	<time datetime="2017-03-15T13:57:52.000Z" itemprop="datePublished">2017-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【每周一文】用Chrome插件监听你的浏览器操作
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/插件/">插件</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>前几天接到武阳电话，这丫给我打电话，一定没有好事。果然……</p>
+<p>武阳正在追一90后萌妹子，80后大叔追一90后妹子，有代沟，不知道如何下手。丫的一动歪脑子，想让我帮监控妹子上网行踪，看看妹子都爱看那些话题，说约妹子时有话聊～。切～～</p>
+<p>对于这种无理请求，我一般是直接拉黑的。</p>
+<p>“我不就认识你，还是搞电脑的的么”。</p>
+<p>“我都30好几的人了，找不到老婆你负责啊”。</p>
+<p>“好不容易遇到一喜欢的，你要不帮我，不还你钱了”。</p>
+<p>死缠乱打，外加威胁，还有各种信息骚扰。我妥协了。</p>
+<p>“最后一次帮你，重申一次，我不是搞电脑的，我是一名程序员，请你丫尊重我的职业”，我恶狠狠的对武阳说。</p>
+<a id="more"></a> 
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p>通过 <code>chrome</code> 扩展拿到上网记录输出日志，如下图</p>
+<p><img src="/images/20170315_git_3.png" alt="上网记录" title="上网记录"></p>
+<h1 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h1><p>这个扩展最核心的就是background.js，几行代码搞定。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab)&#123;</div><div class="line">    //console.log(changeInfo);</div><div class="line">    //console.log(tab);</div><div class="line">    if( changeInfo.url == undefined) return;//解决onUpdated多次运行的问题</div><div class="line">    var url = tab.url;</div><div class="line">    if(url != undefined) &#123;</div><div class="line">        // 将信息能过Ajax发送到服务器</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;http://xxx.xxx/xxx/xxx&apos;,</div><div class="line">            type: &apos;POST&apos;,</div><div class="line">            data: &#123;&apos;url&apos;: tab.url&#125;,</div><div class="line">            //dataType: &apos;json&apos;,</div><div class="line">        &#125;).done(function(msg)&#123;</div><div class="line">            console.log(msg);</div><div class="line">        &#125;, function(e)&#123;</div><div class="line">            console.log(e);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>在使用 <code>chrome.tabs.onUpdated.addListener</code> 拦截 <code>url</code> 时，遇到了 <code>onUpdate</code>事件多次运行的问题，<code>debug</code> 了一下，发现在<code>tab</code>更新<code>url</code>的时候，会有下面的四种情况</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line">//第一种 访问url，触发事件，loading</div><div class="line">changeInfo = &#123;status: "loading", url: "http://fxd.blogchina.com/790583846.html"&#125; </div><div class="line">tab =  &#123;</div><div class="line">    active:true</div><div class="line">    audible:false</div><div class="line">    autoDiscardable:true</div><div class="line">    discarded:false</div><div class="line">    height:636</div><div class="line">    highlighted:true</div><div class="line">    id:5465</div><div class="line">    incognito:false</div><div class="line">    index:7</div><div class="line">    mutedInfo:Object</div><div class="line">    openerTabId:5101</div><div class="line">    pinned:false</div><div class="line">    selected:true</div><div class="line">    status:"loading"</div><div class="line">    title:"fxd.blogchina.com/790583846.html"</div><div class="line">    url:"http://fxd.blogchina.com/790583846.html"</div><div class="line">    width:1225</div><div class="line">    windowId:1</div><div class="line">&#125;</div><div class="line"> </div><div class="line">//第二种 访问title，触发事件 loading</div><div class="line">changeInfo  = &#123;title:"凯文·凯利为什么在中国独热而在硅谷从来不热？-方兴东的专栏 - 博客中国"&#125; </div><div class="line">tab =  &#123;</div><div class="line">    active:true</div><div class="line">    audible:false</div><div class="line">    autoDiscardable:true</div><div class="line">    discarded:false</div><div class="line">    height:636</div><div class="line">    highlighted:true</div><div class="line">    id:5465</div><div class="line">    incognito:false</div><div class="line">    index:7</div><div class="line">    mutedInfo:Object</div><div class="line">    openerTabId:5101</div><div class="line">    pinned:false</div><div class="line">    selected:true</div><div class="line">    status:"loading"</div><div class="line">    title:"凯文·凯利为什么在中国独热而在硅谷从来不热？-方兴东的专栏 - 博客中国"</div><div class="line">    url:"http://fxd.blogchina.com/790583846.html"</div><div class="line">    width:1225</div><div class="line">    windowId:1</div><div class="line">&#125;</div><div class="line"> </div><div class="line">//第三种 访问url结束，触发事件，complete</div><div class="line">changeInfo =  &#123;status: "complete"&#125; </div><div class="line">tab = &#123;</div><div class="line">    active:true</div><div class="line">    audible:false</div><div class="line">    autoDiscardable:true</div><div class="line">    discarded:false</div><div class="line">    height:636</div><div class="line">    highlighted:true</div><div class="line">    id:5465</div><div class="line">    incognito:false</div><div class="line">    index:7</div><div class="line">    mutedInfo:Object</div><div class="line">    openerTabId:5101</div><div class="line">    pinned:false</div><div class="line">    selected:true</div><div class="line">    status:"complete"</div><div class="line">    title:"凯文·凯利为什么在中国独热而在硅谷从来不热？-方兴东的专栏 - 博客中国"</div><div class="line">    url:"http://fxd.blogchina.com/790583846.html"</div><div class="line">    width:1225</div><div class="line">    windowId:1</div><div class="line">&#125;</div><div class="line"></div><div class="line">//第四种 favIcon，触发事件，complete</div><div class="line">changeInfo =  &#123;favIconUrl:"http://fxd.blogchina.com/favicon.ico"&#125; </div><div class="line">tab = &#123;</div><div class="line">    active:true</div><div class="line">    audible:false</div><div class="line">    autoDiscardable:true</div><div class="line">    discarded:false</div><div class="line">    favIconUrl:"http://fxd.blogchina.com/favicon.ico"</div><div class="line">    height:636</div><div class="line">    highlighted:true</div><div class="line">    id:5465</div><div class="line">    incognito:false</div><div class="line">    index:7</div><div class="line">    mutedInfo:Object</div><div class="line">    openerTabId:5101</div><div class="line">    pinned:false</div><div class="line">    selected:true</div><div class="line">    status:"complete"</div><div class="line">    title:"凯文·凯利为什么在中国独热而在硅谷从来不热？-方兴东的专栏 - 博客中国"</div><div class="line">    url:"http://fxd.blogchina.com/790583846.html"</div><div class="line">    width:1225</div><div class="line">    windowId:1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总结以上四种情况：在<code>tab</code>更新<code>url</code>时</p>
+<p>1、访问url，触发事件，loading<br>2、访问title，触发事件，loading<br>3、访问favicon，触发事件，complete<br>4、访问url结束，触发事件，complete</p>
+<p>通过查看，我们可以发现，只有一次在访问url的时候，changeInfo会有url这个字段，所以可以利用这个字段来判断，让onUpdate里面的代码对每个url只运行一次，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">chrome.tabs.onUpdated.addListener(<span class="function"><span class="keyword">function</span>(<span class="params">tabId, changeInfo,tab</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>( changeInfo.url == <span class="literal">undefined</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> url = tab.url;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span>(url != <span class="literal">undefined</span>) &#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>代码写完，妹子顺利安装后，武阳不但乖乖还钱了，还发了我很多红包。一向嚣张的武阳变乖了吗？不是，因为我掌握着妹子的上网记录～，心情好时我会把记录推给武阳，心情不好时，有红包心情就好喽。</p>
+<p>以上内容，纯属虚构。如需代码，请联系 entere#126.com </p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/22/每个人都需要的中文排版指南/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          每个人都需要的中文排版指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/01/微信公众号支付入门教程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信公众号支付入门教程</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

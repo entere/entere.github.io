@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>微信公众号支付入门教程 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="概述约两年前，团队开发了打赏项目，当时重新对微信sdk进行了简单的封装。最近发现git上EasyWeChat这个开源项目比较火爆，他重新对微信的sdk进行了封装，号称是目前最优雅的SDK，已经有4000多star，我按文档简单的测试了一下微信支付，确实很方便、很快捷、很优雅。这里为作者点个赞～ 本文记录了使用Laravel 和 EasyWeChat开发微信公众号支付的过程，共分为三个部分：一、微信">
+<meta name="keywords" content="微信支付">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信公众号支付入门教程">
+<meta property="og:url" content="http://entere.github.com/2017/03/01/微信公众号支付入门教程/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="概述约两年前，团队开发了打赏项目，当时重新对微信sdk进行了简单的封装。最近发现git上EasyWeChat这个开源项目比较火爆，他重新对微信的sdk进行了封装，号称是目前最优雅的SDK，已经有4000多star，我按文档简单的测试了一下微信支付，确实很方便、很快捷、很优雅。这里为作者点个赞～ 本文记录了使用Laravel 和 EasyWeChat开发微信公众号支付的过程，共分为三个部分：一、微信">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-29T04:02:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信公众号支付入门教程">
+<meta name="twitter:description" content="概述约两年前，团队开发了打赏项目，当时重新对微信sdk进行了简单的封装。最近发现git上EasyWeChat这个开源项目比较火爆，他重新对微信的sdk进行了封装，号称是目前最优雅的SDK，已经有4000多star，我按文档简单的测试了一下微信支付，确实很方便、很快捷、很优雅。这里为作者点个赞～ 本文记录了使用Laravel 和 EasyWeChat开发微信公众号支付的过程，共分为三个部分：一、微信">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-微信公众号支付入门教程" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/01/微信公众号支付入门教程/" class="article-date">
+  	<time datetime="2017-03-01T13:54:48.000Z" itemprop="datePublished">2017-03-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微信公众号支付入门教程
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信支付/">微信支付</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>约两年前，团队开发了打赏项目，当时重新对微信sdk进行了简单的封装。最近发现git上<a href="https://easywechat.org" target="_blank" rel="external">EasyWeChat</a>这个开源项目比较火爆，他重新对微信的sdk进行了封装，号称是目前最优雅的SDK，已经有4000多star，我按文档简单的测试了一下微信支付，确实很方便、很快捷、很优雅。这里为作者点个赞～</p>
+<p>本文记录了使用Laravel 和 EasyWeChat开发微信公众号支付的过程，共分为三个部分：一、微信公众号支付的配置，二、使用JSAPI调起微信支付，三、支付成功的回调处理。</p>
+<a id="more"></a> 
+<h1 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h1><p>在开始本文之前确保你已经看懂<a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_1" target="_blank" rel="external">微信公众号支付文档</a>，且看明白<a href="https://easywechat.org/zh-cn/docs/" target="_blank" rel="external">EasyWeChat文档</a>，且已获取微信支付接口权限，且熟悉Laravel框架。</p>
+<h1 id="撸起袖子开始干"><a href="#撸起袖子开始干" class="headerlink" title="撸起袖子开始干"></a>撸起袖子开始干</h1><h3 id="微信公众号支付的配置"><a href="#微信公众号支付的配置" class="headerlink" title="微信公众号支付的配置"></a>微信公众号支付的配置</h3><p>1.登陆<a href="http://mp.weixin.qq.com" target="_blank" rel="external">微信公众平台</a> 找到设置&gt;公众号设置&gt;功能设置，按文档说明设置好JS接口安全域名和网页授权域名比如reward.xxx.com</p>
+<p>2.找到微信支付&gt;开发配置 配置好支付授权目录和测试授权目录比如reward.xxx.com/pay/并添加测试白名单。好，现在微信配置完成。</p>
+<h3 id="使用JSAPI调起微信支付"><a href="#使用JSAPI调起微信支付" class="headerlink" title="使用JSAPI调起微信支付"></a>使用JSAPI调起微信支付</h3><p>一堆流程微信官方文档已经说的很清楚，我就不在复述，主要就是先授权获取openid，然后调用统一下单API生成预付单，然后就可以调起微信支付了。</p>
+<p>下面我们通过代码来说明整个流程</p>
+<p>1.当用户点赞赏按钮时，赞赏程序引导用户到选择金额的界面，这个引导过程经过两次跳转：第一次跳转到<br>getAuthcallback方法，此方法就一个目的，静默授权拿到openid，然后存入cache;第二次跳转到选择金额的界面(收银台)。代码如下 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> <span class="comment">/**</span></div><div class="line"><span class="comment"> * 第一步</span></div><div class="line"><span class="comment"> * 接收client传来的参数存入session,跳转到授权authcallback：getAuthcallback方法</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span>  Request $request [description]</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span> [type]           [description]</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getGocashier</span><span class="params">(Request $request)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    $params = [</div><div class="line">        <span class="string">'nickname'</span>        =&gt; <span class="string">'方兴东'</span>,</div><div class="line">        <span class="string">'avatar'</span>      =&gt; <span class="string">'http://avatar.blogchina.com/HeadPic/79715b4b3d995d350689194113978c7b!m160'</span>,</div><div class="line">        <span class="string">'body'</span>             =&gt; <span class="string">'打赏99，爆照'</span>,</div><div class="line">        <span class="string">'detail'</span>           =&gt; <span class="string">'detail'</span></div><div class="line">    ];</div><div class="line">    <span class="comment">//把参数放到闪存中</span></div><div class="line">    $request-&gt;session()-&gt;put(<span class="string">'sess_wxpay_goods'</span>, $params);</div><div class="line">    <span class="keyword">return</span> redirect(<span class="string">'/wxpay/authcallback'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 第二步 授权后获取openid,并把openid 把openid存入session 并跳转到收银台</span></div><div class="line"><span class="comment"> * 授权和授权回调页在同一个页，通过是否有code参数判断</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span>  Request $request [description]</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span> [type]           [description]</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">anyAuthcallback</span><span class="params">(Request $request)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    </div><div class="line">    $app = <span class="keyword">new</span> Application(<span class="keyword">$this</span>-&gt;config);</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">empty</span>($request-&gt;input(<span class="string">'code'</span>))) &#123;</div><div class="line">        $response = $app-&gt;oauth-&gt;scopes([<span class="string">'snsapi_base'</span>])</div><div class="line">                    -&gt;redirect();</div><div class="line">                    <span class="keyword">return</span> $response;</div><div class="line">    &#125;</div><div class="line">    $user = $app-&gt;oauth-&gt;user();</div><div class="line">    $openid =  $user-&gt;id;</div><div class="line">    $request-&gt;session()-&gt;put(<span class="string">'sess_wxpay_openid'</span>, $openid);</div><div class="line">    <span class="keyword">return</span> redirect(<span class="string">"/wxpay/cashier"</span>);</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 收银台从session 取出商品信息 并给用户展示选择支付多少钱的页面</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span>  Request $request [description]</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span> [type]           [description]</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getCashier</span><span class="params">(Request $request)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line"></div><div class="line">    $vdata = $request-&gt;session()-&gt;get(<span class="string">'sess_wxpay_goods'</span>);</div><div class="line">    <span class="keyword">return</span> view(<span class="string">'wxpay.cashier'</span>,compact(<span class="string">'vdata'</span>));</div><div class="line">    </div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">未完待续</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/15/【每周一文】用Chrome插件监听你的浏览器操作/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【每周一文】用Chrome插件监听你的浏览器操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/16/Android开发规范/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android开发规范</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Android Toolbar，你想知道的都在这里了 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="转自yifeng.studio Android 3.0之后，Google引入了ActionBar，想统一安卓应用的导航栏样式。但由于ActionBar难以定制，很大程度上限制了开发人员，比如标题文字大小、间距等不易实现个性化，很多开发者放弃了ActionBar的使用，而是使用普通的ViewGroup来封装自己的App Bar，或者使用 JakeWharton大神 的 ActionBarSherlo">
+<meta name="keywords" content="Android,Toolbar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Toolbar，你想知道的都在这里了">
+<meta property="og:url" content="http://entere.github.com/2017/06/20/Android Toolbar，你想知道的都在这里了/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="转自yifeng.studio Android 3.0之后，Google引入了ActionBar，想统一安卓应用的导航栏样式。但由于ActionBar难以定制，很大程度上限制了开发人员，比如标题文字大小、间距等不易实现个性化，很多开发者放弃了ActionBar的使用，而是使用普通的ViewGroup来封装自己的App Bar，或者使用 JakeWharton大神 的 ActionBarSherlo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://entere.github.com/images/20170612_toolbar-sample-01.png">
+<meta property="og:image" content="http://entere.github.com/images/20170612_toolbar-sample-02.png">
+<meta property="og:image" content="http://entere.github.com/images/20170612_toolbar-sample-04.png">
+<meta property="og:image" content="http://entere.github.com/images/20170612_toolbar-sample-11.png">
+<meta property="og:image" content="http://entere.github.com/images/20170612_toolbar-sample-12.jpg">
+<meta property="og:image" content="http://entere.github.com/images/20170612_toolbar-sample-05.png">
+<meta property="og:image" content="http://entere.github.com/images/20170612_toolbar-sample-06.png">
+<meta property="og:image" content="http://entere.github.com/images/20170612_transition-to-search.gif">
+<meta property="og:updated_time" content="2017-07-29T04:02:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Toolbar，你想知道的都在这里了">
+<meta name="twitter:description" content="转自yifeng.studio Android 3.0之后，Google引入了ActionBar，想统一安卓应用的导航栏样式。但由于ActionBar难以定制，很大程度上限制了开发人员，比如标题文字大小、间距等不易实现个性化，很多开发者放弃了ActionBar的使用，而是使用普通的ViewGroup来封装自己的App Bar，或者使用 JakeWharton大神 的 ActionBarSherlo">
+<meta name="twitter:image" content="http://entere.github.com/images/20170612_toolbar-sample-01.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Android Toolbar，你想知道的都在这里了" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/20/Android Toolbar，你想知道的都在这里了/" class="article-date">
+  	<time datetime="2017-06-20T14:17:23.000Z" itemprop="datePublished">2017-06-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android Toolbar，你想知道的都在这里了
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Toolbar/">Toolbar</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://yifeng.studio/2016/10/12/android-toolbar/" target="_blank" rel="external">转自yifeng.studio</a></p>
+<p>Android 3.0之后，Google引入了ActionBar，想统一安卓应用的导航栏样式。但由于ActionBar难以定制，很大程度上限制了开发人员，比如标题文字大小、间距等不易实现个性化，很多开发者放弃了ActionBar的使用，而是使用普通的ViewGroup来封装自己的App Bar，或者使用 <a href="https://github.com/JakeWharton" target="_blank" rel="external">JakeWharton大神</a> 的 <a href="https://github.com/JakeWharton/ActionBarSherlock" target="_blank" rel="external">ActionBarSherlock</a> 库。</p>
+<p>后来，自2014年Google I/O 上Material Design 横空出世后，市场上的应用又逐步趋向了样式的风格统一，support library中很快就出来了 Toolbar 控件，一个定制化的 ViewGroup，来完善 ActionBar 的使用，App Bar又迎来了春天。</p>
+<a id="more"></a>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>第一步，在Theme中隐藏现有的ActionBar，有以下两种方式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme.Base"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"windowActionBar"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowNoTitle"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined">    ......</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme.Base"</span> <span class="attr">parent</span>=<span class="string">"heme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">    ......</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>第二步，在布局中添加v7包中的Toolbar控件（注意在builde.gradle文件中添加support.v7包的依赖：compile ‘com.android.support:appcompat-v7:23.3.0’），如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></div><div class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/tb_toolbar"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"?attr/actionBarSize"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:title</span>=<span class="string">"@string/app_name"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:titleTextColor</span>=<span class="string">"@android:color/white"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"@color/colorPrimary"</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.v7.widget.Toolbar</span>&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：如果此处不设置 title 属性，默认使用 manifest 文件中 <activity> 标签的 android:label 属性值作为标题内容。</activity></p>
+</blockquote>
+<p>第三步，在Activity代码中使用Toolbar对象替换ActionBar：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Toolbar mToolbarTb = (Toolbar) findViewById(R.id.tb_toolbar);</div><div class="line">setSupportActionBar(mToolbarTb);</div></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="/images/20170612_toolbar-sample-01.png" alt=""></p>
+<p>诸如logo、title、subTitle、navigationIcon等，都可以通过app:xxx属性和Java代码来控制。titleTextAppearance、subtitleTextAppearance也可以用来控制标题颜色和大小，如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"Theme.ToolBar.Base.Title"</span> <span class="attr">parent</span>=<span class="string">"@style/TextAppearance.Widget.AppCompat.Toolbar.Title"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:textSize"</span>&gt;</span>18sp<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:textColor"</span>&gt;</span>@android:color/white<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="Options-Menu"><a href="#Options-Menu" class="headerlink" title="Options Menu"></a>Options Menu</h1><p>与 ActionBar 的用法一致，在menu资源目录下新建一个search.xml文件，添加menu内容，如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">menu</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">item</span></span></div><div class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/action_search"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:title</span>=<span class="string">"search"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@android:drawable/ic_menu_search"</span></span></div><div class="line"><span class="tag">        <span class="attr">app:showAsAction</span>=<span class="string">"collapseActionView"</span>/&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">menu</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在Java代码中添加为Toolbar添加对应的Menu Item，并设置点击事件，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</div><div class="line">    getMenuInflater().inflate(R.menu.search, menu);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onCreateOptionsMenu(menu);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (item.getItemId()) &#123;</div><div class="line">        <span class="keyword">case</span> R.id.action_search:</div><div class="line">            <span class="comment">//TODO search</span></div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果如/images/下：</p>
+<p><img src="/images/20170612_toolbar-sample-02.png" alt=""></p>
+<p>如图，溢出按钮的颜色是黑色，那么怎么修改成与主题色搭配的白色呢？可以通过修改Toolbar的theme和popupTheme属性来改变，在Toolbar中添加如下属性：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></div><div class="line"><span class="tag">    <span class="attr">......</span></span></div><div class="line"><span class="tag">    <span class="attr">app:popupTheme</span>=<span class="string">"@style/ThemeOverlay.AppCompat.Light"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:theme</span>=<span class="string">"@style/ThemeOverlay.AppCompat.Dark.ActionBar"</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.v7.widget.Toolbar</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>还有另一种方式，就是使用theme中的actionMenuTextColor属性设置Menu Item的字体颜色，如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"OverFlowMenuTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.NoActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:actionMenuTextColor"</span>&gt;</span>@android:color/white<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"overlapAnchor"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Toolbar中的相关theme设置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></div><div class="line"><span class="tag">    <span class="attr">......</span></span></div><div class="line"><span class="tag">    <span class="attr">app:popupTheme</span>=<span class="string">"@style/OverFlowMenuTheme"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:theme</span>=<span class="string">"@style/ThemeOverlay.AppCompat.Dark.ActionBar"</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.v7.widget.Toolbar</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>一般也是采用这种做法，将Toolbar相关属性集中写到一个style中，比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"OverFlowMenuTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.NoActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">    <span class="comment">&lt;!-- 设置Menu菜单的背景色 --&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:itemBackground"</span>&gt;</span>@android:color/white<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="comment">&lt;!-- 设置Menu菜单的字体颜色 --&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:textColorPrimary"</span>&gt;</span>@android:color/black<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="comment">&lt;!-- 设置Menu窗口不覆盖Toolbar视图 --&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"overlapAnchor"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这样设置下的效果如下图所示：</p>
+<p><img src="/images/20170612_toolbar-sample-04.png" alt=""></p>
+<p>另外，也可以获取 MenuItem 对象，然后通过如下方法设置 Item 的显示与隐藏：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">MenuItem item = menu.findItem(R.id.action_search);</div><div class="line">item.setVisible(<span class="keyword">false</span>);</div></pre></td></tr></table></figure>
+<p>或者直接移除所有 Item 内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">menu.clear();</div><div class="line">ActionMenuView</div></pre></td></tr></table></figure>
+<p>Toolbar 默认将 Menu 内容显示在右边，那如何将其显示在左边或者中间呢？不妨试一下 ActionMenuView 。</p>
+<p>ActionMenuView 是将原本位于 Toolbar 或者 ActionBar 中的 Menu 内容移到自己的名下，以 ViewGroup 的姿态将一系列的 Menu Item 囊括其中，再将自己搁置于 Toolbar 容器中，这样，更方便于管理和呈现 Menu 内容。所以，原本孤立的 Toolbar 控件，就有了一个 Child，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></div><div class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/tb_toolbar"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"?actionBarSize"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"@color/colorPrimary"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:theme</span>=<span class="string">"@style/OverFlowMenuTheme"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:popupTheme</span>=<span class="string">"@style/OverFlowMenuTheme"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:title</span>=<span class="string">"@string/app_name"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:titleTextColor</span>=<span class="string">"@android:color/white"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">android.support.v7.widget.ActionMenuView</span></span></div><div class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/amv_search"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>/&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.v7.widget.Toolbar</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>再在 Activity 文件中，将 Menu 资源文件加载到使用 findViewById() 方法获取到的 ActionMenuView 对象中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</div><div class="line">    getMenuInflater().inflate(R.menu.home, mHomeAmv.getMenu());</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onCreateOptionsMenu(menu);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至于 Menu Item 的点击事件方法 onOptionsItemSelected 无需改动，只要将 ActionMenuView 对象的点击事件设置转移即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">mHomeAmv = (ActionMenuView) findViewById(R.id.amv_home);</div><div class="line">mHomeAmv.setOnMenuItemClickListener(<span class="keyword">new</span> ActionMenuView.OnMenuItemClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onMenuItemClick</span><span class="params">(MenuItem item)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> onOptionsItemSelected(item);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>还可以利用 getMenu() 方法获取到 Menu 对象，动态添加或删除 Menu Item，甚至加载另外一个 Menu 资源文件，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">mHomeAmv.getMenu().clear();</div><div class="line">getMenuInflater().inflate(R.menu.search, mSearchAmv.getMenu());</div></pre></td></tr></table></figure>
+<p>现在有这样一个需求，设计图如下 (图片来源：stack overflow)：</p>
+<p><img src="/images/20170612_toolbar-sample-11.png" alt=""></p>
+<p>就可以利用 ActionMenuView 控制 Menu Item 的位置了。当然，这里面还需要另外几个知识点，顺便补充说明一下。</p>
+<p>第一，Menu Item 间距问题。Item 默认的宽度是56dp ，可以利用 style 中的属性修改，并将样式设置给 Activity 主题即可，比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>@color/colorPrimary<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>@color/colorPrimaryDark<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorAccent"</span>&gt;</span>@color/colorAccent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:actionButtonStyle"</span>&gt;</span>@style/MyActionButtonStyle<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"MyActionButtonStyle"</span> <span class="attr">parent</span>=<span class="string">"@android:style/Widget.Holo.ActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:minWidth"</span>&gt;</span>72dip<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:padding"</span>&gt;</span>0dp<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>第二，Menu Item 图标高亮问题。当然，你可以使用两套图标，在点击时修改图标资源。但借助 ColorFilter 使用一套图标也能做到，还能减少 APK 文件大小，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (item.getItemId()) &#123;</div><div class="line">        <span class="keyword">case</span> R.id.option_walk:</div><div class="line">            item.getIcon().setColorFilter(ContextCompat.getColor(<span class="keyword">this</span>,</div><div class="line">                    android.R.color.darker_gray), PorterDuff.Mode.MULTIPLY);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="actionLayout"><a href="#actionLayout" class="headerlink" title="actionLayout"></a>actionLayout</h1><p>通常情况下，Toolbar 中的 Menu Item 只显示为一个 Icon，通过 标签定义 title 和 icon 属性即可。但是，存在一些特殊情况，需要自定义 Menu Item 的内容，常见的有搜索页面，比如网易云音乐的搜索栏：</p>
+<p><img src="/images/20170612_toolbar-sample-12.jpg" alt=""></p>
+<p>这种情况下，就需要额外定义一个 layout 文件，然后通过 actionLayout 属性引入到 标签中，比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">menu</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line"><span class="tag">  <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">item</span></span></div><div class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/action_search"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:title</span>=<span class="string">"搜索"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:actionLayout</span>=<span class="string">"@layout/menu_search"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:showAsAction</span>=<span class="string">"always"</span>/&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">menu</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这里有两点需要注意：第一，menu_search 布局文件的内容必须以 RelativeLayout 作为根容器布局，否则，actionLayout 对应的视图宽度不足以填充满 Toolbar 或者说 ActionBar 的宽度，显示效果如同设置 layout_width 属性值为 wrap_content 一般；第二，actionLayout 属性必须使用 app 作为命名空间，如果使用 android 的话，会导致 menuItem 对象通过 getActionView() 始终获取的对象为 null 。</p>
+<h1 id="Up-Enable"><a href="#Up-Enable" class="headerlink" title="Up Enable"></a>Up Enable</h1><p>在二级界面等Activity中，通过如下设置可以在Toolbar左边显示一个返回按钮：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">getSupportActionBar().setDisplayHomeAsUpEnabled(<span class="keyword">true</span>);</div></pre></td></tr></table></figure>
+<p>然后通过android.R.id.home监听返回按钮的点击事件，比如可以返回上级Activity中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (item.getItemId()) &#123;</div><div class="line">        <span class="keyword">case</span> android.R.id.home:</div><div class="line">            finish();</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当然，也可以通过为Toolbar设置导航图标的点击事件来达到这个监听效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">mToolbarTb.setNavigationOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        finish();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>显示效果如下：</p>
+<p><img src="/images/20170612_toolbar-sample-05.png" alt=""></p>
+<p>至于导航返回按钮的图标，可以通过mToolbarTb.setNavigationIcon方法或者app:navigationIcon属性来修改。</p>
+<h1 id="Toolbar-Shadow"><a href="#Toolbar-Shadow" class="headerlink" title="Toolbar Shadow"></a>Toolbar Shadow</h1><p>根据 Material Design 设计规范，Toolbar 是存在于页面 Content 之上的，也就是有一个 elevation 上的视差，类似阴影效果。</p>
+<p>然而，无论是通过 android:elevation 属性，还是使用 AppBarLayout 包裹 Toolbar，都只能兼容 Lollipop 及更高版本的系统。要想兼容 Pre-Lollipop 设备，必须自己实现阴影效果。有两种选择，一种是使用点9背景图，另一种是使用 <gradient> 标签定制一个阴影渐变效果。看下后者的实现方式。</gradient></p>
+<p>创建 xml 阴影形状，res/drawable/shadow.xml 文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">gradient</span></span></div><div class="line"><span class="tag">        <span class="attr">android:startColor</span>=<span class="string">"@android:color/transparent"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:endColor</span>=<span class="string">"#40000000"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:angle</span>=<span class="string">"90"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="与-Toolbar-一起使用即可："><a href="#与-Toolbar-一起使用即可：" class="headerlink" title="与 Toolbar 一起使用即可："></a>与 Toolbar 一起使用即可：</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"?attr/actionBarSize"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"?attr/colorPrimary"</span> /&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">View</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"4dp"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"@drawable/shadow"</span> /&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>备注：为了保持不同设备 App 体验的一致性，推荐统一使用这种方式实现 Toolbar 阴影效果，而不是类似这样做版本区分：在 Lollipop 及以上版本隐藏 shadow view，使用 elevation 属性；在 pre-Lollipop 中使用上述 shadow view。</p>
+<h1 id="标题居中"><a href="#标题居中" class="headerlink" title="标题居中"></a>标题居中</h1><p>前面我们说过，Toolbar就是一个定制化的ViewGroup，所以可以在Toolbar里面放置一个TextView控件作为居中的标题来使用，再将Toolbar的Title隐藏起来即可实现Toolbar标题居中的效果，如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></div><div class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/tb_toolbar"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"?attr/actionBarSize"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:popupTheme</span>=<span class="string">"@style/OverFlowMenuTheme"</span></span></div><div class="line"><span class="tag">    <span class="attr">app:theme</span>=<span class="string">"@style/ThemeOverlay.AppCompat.Dark.ActionBar"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"@color/colorPrimary"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"SecondActivity"</span></span></div><div class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"@style/TextAppearance.AppCompat.Widget.ActionBar.Title"</span>/&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.v7.widget.Toolbar</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这里给TextView设置了style属性，与ActionBar.Title保持一致，然后还需要去除Toolbar自有的Title，在布局中使用app:title=””是不会起作用的，会显示ActionBar的标题，所以在代码中隐藏ActionBar的标题即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">getSupportActionBar().setDisplayShowTitleEnabled(<span class="keyword">false</span>);</div></pre></td></tr></table></figure>
+<p>效果如/images/下：</p>
+<p><img src="/images/20170612_toolbar-sample-06.png" alt=""></p>
+<h1 id="“withText”-问题"><a href="#“withText”-问题" class="headerlink" title="“withText” 问题"></a>“withText” 问题</h1><p>Google 在设计 ActionBar 时，就约束了 menu item 中 icon 与 title 属性的关系。非溢出状态下不显示 title 文本。所以，即使在 app:showAsAction 属性中添加 withText 值也不一定能显示 title。更不用提只显示 title 不显示 icon 的情况。官方说明如下：</p>
+<p>Note: The “withText” value is a hint to the action bar that the text title should appear. The action bar will show the title when possible, but might not if an icon is available and the action bar is constrained for space.<br>如果一定要展示 title text 的话，也不是不行，可以使用 showAsAction 属性指定 item 的布局内容。具体做法可参考：StackOverFlow。</p>
+<h1 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h1><p>系统提供了search dialog和search widget两种方式给Toolbar添加搜索功能，实现方式可参考 API 指南：Creating a Search Interface。但系统提供的搜索功能略显僵硬，既无法引起用户的搜索欲望，也无法满足多数的产品设计需求，适用性不强，所以这里不作过多介绍。相反，使用自定义的搜索功能并为之添加适当的转场过度动画，效果立竿见影，参考开源项目：Material-SearchTransition，对应博文介绍：Exposing the Searchbar，效果如下：</p>
+<p><img src="/images/20170612_transition-to-search.gif" alt=""></p>
+<h1 id="Fragment中使用"><a href="#Fragment中使用" class="headerlink" title="Fragment中使用"></a>Fragment中使用</h1><p>有时候需要在Fragment中使用Toolbar，比如Activity中不同的Tab显示不同的Fragment，同时每个Tab的Toolbar标题、Menu均不相同，这时在Activity中使用同一个Toolbar就相当不方便了。我们可以在每个Fragment的布局中添加各自的Toolbar，然后在Fragment中单独控制。</p>
+<p>与Activity中使用Toolbar有所不同。替换ActionBar时，需要给setSupportActionBar方法添加作用对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">((AppCompatActivity)getActivity()).setSupportActionBar((Toolbar) mContentView.findViewById(R.id.tb_toolbar));</div></pre></td></tr></table></figure>
+<p>添加Options Menu时，需要额外调用setHasOptionsMenu(true);方法，确保onCreateOptionsMenu()方法得以调用，并且onCreateOptionsMenu()方法多了一个MenuInflater参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@Override</div><div class="line">public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) &#123;</div><div class="line">    super.onCreateOptionsMenu(menu, inflater);</div><div class="line">    inflater.inflate(R.menu.search, menu);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/25/【每周一文】Android中如何给layout资源文件分类/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【每周一文】Android中如何给layout资源文件分类
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/06/【每周一文】Neo4j教程五：微信分享追踪系统的实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【每周一文】Neo4j教程五：微信分享追踪系统的实现</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
