@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>【每周一文】javascript面向对象之公有、私有、静态属性和方法详解 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这篇文章主要详细介绍了js面向对象之公有、私有、静态属性和方法，并附上详细的示例，非常的细致全面，这里推荐给大家，有需要的小伙伴可以参考下 现下，javascript 大行其道，对于网站开发人员来说，javascript 是必需掌据的一门语言，但随着jquery等框架的流行和使用，许多人对于原生 javascript 缺乏深入的理解，习惯了函数式的编辑风格，对于闭包、原型总是说不清道不明．对于js">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【每周一文】javascript面向对象之公有、私有、静态属性和方法详解">
+<meta property="og:url" content="http://entere.github.com/2017/09/30/【每周一文】javascript面向对象之公有、私有、静态属性和方法详解/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="这篇文章主要详细介绍了js面向对象之公有、私有、静态属性和方法，并附上详细的示例，非常的细致全面，这里推荐给大家，有需要的小伙伴可以参考下 现下，javascript 大行其道，对于网站开发人员来说，javascript 是必需掌据的一门语言，但随着jquery等框架的流行和使用，许多人对于原生 javascript 缺乏深入的理解，习惯了函数式的编辑风格，对于闭包、原型总是说不清道不明．对于js">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-30T03:23:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【每周一文】javascript面向对象之公有、私有、静态属性和方法详解">
+<meta name="twitter:description" content="这篇文章主要详细介绍了js面向对象之公有、私有、静态属性和方法，并附上详细的示例，非常的细致全面，这里推荐给大家，有需要的小伙伴可以参考下 现下，javascript 大行其道，对于网站开发人员来说，javascript 是必需掌据的一门语言，但随着jquery等框架的流行和使用，许多人对于原生 javascript 缺乏深入的理解，习惯了函数式的编辑风格，对于闭包、原型总是说不清道不明．对于js">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-【每周一文】javascript面向对象之公有、私有、静态属性和方法详解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/30/【每周一文】javascript面向对象之公有、私有、静态属性和方法详解/" class="article-date">
+  	<time datetime="2017-09-30T14:54:00.000Z" itemprop="datePublished">2017-09-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【每周一文】javascript面向对象之公有、私有、静态属性和方法详解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章主要详细介绍了js面向对象之公有、私有、静态属性和方法，并附上详细的示例，非常的细致全面，这里推荐给大家，有需要的小伙伴可以参考下</p>
+<p>现下，javascript 大行其道，对于网站开发人员来说，javascript 是必需掌据的一门语言，但随着jquery等框架的流行和使用，许多人对于原生 javascript 缺乏深入的理解，习惯了函数式的编辑风格，对于闭包、原型总是说不清道不明．对于js面向对象蹩脚的用着，而要了解 js 面向对象，就必需先了解 js 中什么是公有方法、特权方法、静态方法</p>
+<a id="more"></a>
+<p>方法/步骤</p>
+<h1 id="1-公有属性和公有方法"><a href="#1-公有属性和公有方法" class="headerlink" title="1.公有属性和公有方法"></a>1.公有属性和公有方法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">name,age</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name;<span class="comment">//公有属性</span></div><div class="line">  <span class="keyword">this</span>.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//公有方法</span></div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">'fire子海'</span>,<span class="number">26</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(user.getName()); <span class="comment">//output:fire子海</span></div></pre></td></tr></table></figure>
+<h1 id="2-私有属性和方法"><a href="#2-私有属性和方法" class="headerlink" title="2.私有属性和方法"></a>2.私有属性和方法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">name,age</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> name = name;<span class="comment">//私有属性</span></div><div class="line">  <span class="keyword">var</span> age = age;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">alertAge</span>(<span class="params"></span>)</span>&#123;<span class="comment">//私有方法</span></div><div class="line">     alert(age);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertAge(age); <span class="comment">//弹出26</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">'fire子海'</span>,<span class="number">26</span>);</div></pre></td></tr></table></figure>
+<h1 id="3-静态属性和方法"><a href="#3-静态属性和方法" class="headerlink" title="3.静态属性和方法"></a>3.静态属性和方法</h1><p>在php中，无需实例化就可以调用的方法就叫静态方法，js也一样，无需实例化，即用new操作符实化对象，就可调用对象的方法和属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line"></div><div class="line">User.age = <span class="number">26</span>;<span class="comment">//静态属性</span></div><div class="line">User.myname = <span class="string">'fire子海'</span>;</div><div class="line">User.getName =<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//静态方法</span></div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.myname;<span class="comment">//如果这里使用this.name，返回的将是User，所有改用了myname，</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(User.getName());<span class="comment">//output:fire子海</span></div></pre></td></tr></table></figure>
+<h1 id="4-特权方法"><a href="#4-特权方法" class="headerlink" title="4.特权方法"></a>4.特权方法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">name,age</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> name = name;<span class="comment">//私有属性</span></div><div class="line">  <span class="keyword">var</span> age = age;</div><div class="line">  <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//特权方法</span></div><div class="line">     <span class="keyword">return</span> name;<span class="comment">//私有属性和方法不能使用this调用</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">'fire子海'</span>,<span class="number">26</span>);</div><div class="line"><span class="built_in">console</span>.log(user.getName());<span class="comment">//output:fire子海</span></div></pre></td></tr></table></figure>
+<h1 id="5-静态类"><a href="#5-静态类" class="headerlink" title="5.静态类"></a>5.静态类</h1><p>使用字面量的方式来创建</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> user = &#123;</div><div class="line">  init:<span class="function"><span class="keyword">function</span>(<span class="params">name,age</span>)</span>&#123;</div><div class="line">   <span class="keyword">this</span>.name = name;</div><div class="line">   <span class="keyword">this</span>.age = age;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  getName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line"> &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">user.init(<span class="string">'fire子海'</span>,<span class="number">26</span>);</div><div class="line"><span class="built_in">console</span>.log(user.getName());<span class="comment">//output:fire子海</span></div></pre></td></tr></table></figure>
+<h1 id="6-公有方法的调用规则"><a href="#6-公有方法的调用规则" class="headerlink" title="6.公有方法的调用规则"></a>6.公有方法的调用规则</h1><p>调用公有方法，我们必需先实例化对象<br>公有方法中通过不this调用公有属性和特权方法，不能使用this调用静态方法和属性，必需裁通过对象本身调用，即对象名。公有方法也不能调用私有方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.myname = <span class="string">'fire子海'</span>;<span class="comment">//公有属性</span></div><div class="line">  <span class="keyword">this</span>.age = <span class="number">26</span>;</div><div class="line">  <span class="keyword">this</span>.do = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//特权方法</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.myname+<span class="string">'学习js'</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.eat = <span class="function"><span class="keyword">function</span>(<span class="params">food</span>)</span>&#123;</div><div class="line"> <span class="keyword">return</span> <span class="string">'晚餐只有'</span>+food;</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.prototype.alertAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  alert(<span class="keyword">this</span>.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.prototype.alertDo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  alert(<span class="keyword">this</span>.do());<span class="comment">//调用特权方法</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">User.prototype.alertEat = <span class="function"><span class="keyword">function</span>(<span class="params">food</span>)</span>&#123;</div><div class="line">  alert(User.eat(food));<span class="comment">//只能通过对象本身调用静态方法</span></div><div class="line">  <span class="comment">//alert(this.ear(food))这样调用将出错:this.eat is not a function</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User();</div><div class="line">user.alertAge();<span class="comment">//alert:26</span></div><div class="line">user.alertDo();<span class="comment">//alert:fire子海学习js</span></div><div class="line">user.alertEat(<span class="string">'方便面'</span>)<span class="comment">//alert:晚餐只有方便面</span></div></pre></td></tr></table></figure>
+<h1 id="7-静态方法的调用规则"><a href="#7-静态方法的调用规则" class="headerlink" title="7.静态方法的调用规则"></a>7.静态方法的调用规则</h1><p>使用静态方法时，无需实例化对象，便可以调用，对象实例不能调用对象的静态方法，只能调用实例自身的静态属性和方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line"></div><div class="line">User.age = <span class="number">26</span>;<span class="comment">//静态属性</span></div><div class="line">User.myname = <span class="string">'fire子海'</span>;</div><div class="line">User.getName =<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//静态方法</span></div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.myname;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User();</div><div class="line"><span class="built_in">console</span>.log(user.getName);<span class="comment">//TypeError: user.getName is not a function</span></div><div class="line">user.supper = <span class="string">'方便面'</span>;</div><div class="line">user.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"> <span class="keyword">return</span> <span class="string">'晚餐只有'</span>+<span class="keyword">this</span>.supper;</div><div class="line">&#125;</div><div class="line">user.eat();<span class="comment">//晚餐只有方便面 静态方法无法调用公有属性、公有方法、私有方法、私有属性、特权方法和原型属性</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.myname = <span class="string">'fire子海'</span>;<span class="comment">//公有属性</span></div><div class="line">    <span class="keyword">this</span>.age = <span class="number">26</span>;</div><div class="line">    <span class="keyword">this</span>.do = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//特权方法</span></div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.myname+<span class="string">'学习js'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.prototype.alertAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//公共方法，也叫原型方法</span></div><div class="line">  alert(<span class="keyword">this</span>.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.prototype.sex = <span class="string">'男'</span>;<span class="comment">//原型属性</span></div><div class="line"></div><div class="line">User.getName= <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//静态方法</span></div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.myname;</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.getAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   <span class="keyword">this</span>.alertAge();</div><div class="line">  </div><div class="line">&#125;</div><div class="line"></div><div class="line">User.getDo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.do();</div><div class="line">&#125;</div><div class="line"><span class="comment">//console.log(User.getName())//undefined</span></div><div class="line"><span class="comment">//console.log(User.getDo());//TypeError: this.do is not a function</span></div><div class="line"><span class="comment">//console.log(User.getAge())//TypeError: this.alertAge is not a function</span></div></pre></td></tr></table></figure>
+<h1 id="8-特权方法的调用规则"><a href="#8-特权方法的调用规则" class="headerlink" title="8.特权方法的调用规则"></a>8.特权方法的调用规则</h1><p>特权方法通过 this 调用公有方法、公有属性，通过对象本身调用静态方法和属性，在方法体内直接调用私有属性和私有方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">girlfriend</span>)</span>&#123;</div><div class="line">   <span class="keyword">var</span> girlfriend = girlfriend;</div><div class="line">   <span class="function"><span class="keyword">function</span> <span class="title">getGirlFriend</span>(<span class="params"></span>)</span>&#123;</div><div class="line">     <span class="keyword">return</span> <span class="string">'我女朋友'</span>+girlfriend+<span class="string">'是美女！'</span>;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.myname = <span class="string">'fire子海'</span>;<span class="comment">//公有属性</span></div><div class="line">  <span class="keyword">this</span>.age = <span class="number">26</span>;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.do = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//特权方法</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.myname+<span class="string">'学习js'</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.alertAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   <span class="keyword">this</span>.changeAge();<span class="comment">//特权方法调用公有方法</span></div><div class="line">    alert(<span class="keyword">this</span>.age);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.alertGirlFriend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   alert(getGirlFriend());<span class="comment">//调用私有方法</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">User.prototype.changeAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.age = <span class="number">29</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">'某某'</span>);</div><div class="line">user.alertAge();<span class="comment">//alert:29</span></div><div class="line">user.alertGirlFriend();<span class="comment">//alert:我的女朋友某某是美女！</span></div></pre></td></tr></table></figure>
+<h1 id="9-私有方法"><a href="#9-私有方法" class="headerlink" title="9.私有方法"></a>9.私有方法</h1><p>对象的私有方法和属性,外部是不可以访问的,在方法的内部不是能this调用对象的公有方法、公有属性、特权方法的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">girlfriend</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> girlfriend = girlfriend;</div><div class="line">  <span class="keyword">this</span>.myname = <span class="string">'fire子海'</span>;<span class="comment">//公有属性</span></div><div class="line">  <span class="keyword">this</span>.age = <span class="number">26</span>;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getGirlFriend</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">//this.myname ;//此时的this指向的window对象，并非User对象，</span></div><div class="line">    <span class="comment">// this.myname = 'fire子海',此时的this指向的是getGirFriend对象了。</span></div><div class="line">    <span class="comment">//如果通过this调用了getGirFriend中不存在的方法呀属性，this便会指向window 对象，只有this调用了getGirlFriend存在的方法和属性，this才会指定getGirlFriend;</span></div><div class="line">     alert(User.eat(<span class="string">'泡面'</span>));<span class="comment">//alert：晚餐只有方便面</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.do = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//特权方法</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.myname+<span class="string">'学习js'</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.alertAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   <span class="keyword">this</span>.changeAge();<span class="comment">//特权方法调用公有方法</span></div><div class="line">    alert(<span class="keyword">this</span>.age);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.alertGirlFriend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   getGirlFriend();<span class="comment">//调用私有方法</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">User.eat = <span class="function"><span class="keyword">function</span>(<span class="params">supper</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">'晚餐只有'</span>+supper;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">'某某'</span>);</div><div class="line">user.alertGirlFriend();</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/25/如何在生产环境选择composer包版本/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何在生产环境选择composer包版本</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
