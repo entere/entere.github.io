@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Entere">
 <meta property="og:description" content="使用场景分支  凌晨的中关村，灯火通明。 「领导，我 bot 项目的 A 模块进行到约 1/3，突然接到客户通知，B模块的优先级提升」，虽然是凌晨，小袁两眼依然炯炯有神。也许是第一次参加封闭开发，让小袁感觉很兴奋。 「好的，我给你新开一分支 B，在分支 B 上开发 B 模块，这样就不会影响你 A 模块的开发了」。 「Git 真是个神器」小袁带着对 Git 的崇拜，回到工位继续 Coding。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-29T04:02:43.000Z">
+<meta property="og:updated_time" content="2018-05-22T05:20:45.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【每周一文】Git分支、标签管理与实战操作">
 <meta name="twitter:description" content="使用场景分支  凌晨的中关村，灯火通明。 「领导，我 bot 项目的 A 模块进行到约 1/3，突然接到客户通知，B模块的优先级提升」，虽然是凌晨，小袁两眼依然炯炯有神。也许是第一次参加封闭开发，让小袁感觉很兴奋。 「好的，我给你新开一分支 B，在分支 B 上开发 B 模块，这样就不会影响你 A 模块的开发了」。 「Git 真是个神器」小袁带着对 Git 的崇拜，回到工位继续 Coding。">
@@ -251,6 +251,9 @@
 <p>–no-ff 参数是什么意思呢？指的是强行关闭 fast-forward 方式,默认情况下，Git 执行 <code>快进式合并</code>（fast-farward merge），会直接将 master 分支指向 develop分支，这种情况如果删除分支，则会丢失分支信息。因为在这个过程中没有创建commit。使用–no-ff参数后，会执行正常合并，在 master 分支上生成一个新节点，避免上述情况出现。</p>
 <p>3、其它临时性的分支</p>
 <p>比如你在开发过程中突然要改线上 Bug 这时可能要临时建一分支，这样的分支使用完以后，应该马上删除，确保代码库的的常用分支始终只有 master 和 develop。</p>
+<h1 id="实用技巧"><a href="#实用技巧" class="headerlink" title="实用技巧"></a>实用技巧</h1><p>1、git pull如何强制覆盖本地文件呢：<br>下面是正确的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git fetch --all</div><div class="line"># 然后，你有两个选择：</div><div class="line">$ git reset --hard origin/master</div><div class="line"># 或者如果你在其他分支上：</div><div class="line">$ git reset --hard origin/&lt;branch_name&gt;</div></pre></td></tr></table></figure>
+<p>说明：<br>git fetch从远程下载最新的，而不尝试合并或rebase任何东西。<br>然后git reset将主分支重置为您刚刚获取的内容。 –hard选项更改工作树中的所有文件以匹配origin/master中的文件</p>
 
       
     </div>
