@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>【每周一文】使用JWT实现基于API的用户认证 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。 2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JWT">
+<meta name="keywords" content="JWT,API">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【每周一文】使用JWT实现基于API的用户认证">
+<meta property="og:url" content="http://entere.github.com/2016/04/06/【每周一文】使用JWT实现基于API的用户认证/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。 2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JWT">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-16T02:54:49.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【每周一文】使用JWT实现基于API的用户认证">
+<meta name="twitter:description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。 2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JWT">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/Phaser/" style="font-size: 10px;">Phaser</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-【每周一文】使用JWT实现基于API的用户认证" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/06/【每周一文】使用JWT实现基于API的用户认证/" class="article-date">
+  	<time datetime="2016-04-06T13:58:08.000Z" itemprop="datePublished">2016-04-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【每周一文】使用JWT实现基于API的用户认证
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API/">API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是-JWT？"><a href="#什么是-JWT？" class="headerlink" title="什么是 JWT？"></a>什么是 JWT？</h1><p>JWT 全名 JSON Web Token，是 <a href="https://auth0.com/" target="_blank" rel="external">Auth0</a> 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：</p>
+<blockquote>
+<p>1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。</p>
+<p>2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JWT 返回给客户端。</p>
+<p>3、客户端将 JWT 保存在本地，每次在向服务器请求资源时把 JWT 包含在  HTTP 请求报文里面（authorization header 里面或者请求参数中），然后发送请求给服务器。</p>
+<p>4、服务器可以在 JWT 中提取用户相关信息。进行验证。</p>
+<p>5、服务器验证完成后，发送响应结果给客户端。</p>
+</blockquote>
+<a id="more"></a> 
+<h1 id="为什么要用-JWT"><a href="#为什么要用-JWT" class="headerlink" title="为什么要用 JWT"></a>为什么要用 JWT</h1><p>JWT 只通过算法实现对 Token 合法性的验证，不依赖数据库，Memcached 的等存储系统，因此可以做到跨服务器验证，只要密钥和算法相同，不同服务器程序生成的 Token 可以互相验证。</p>
+<p>使用 JWT 可以省去服务端读取 Session 的步骤，这样更符合 RESTful 的规范。但是对于客户端（或 App 端）来说，为了保存用户授权信息，仍然需要通过 Cookie 或类似的机制进行本地保存。因此 JWT 是用来取代服务端的 Session 而非客户端 Cookie 的方案。</p>
+<h1 id="JWT-标准的设计"><a href="#JWT-标准的设计" class="headerlink" title="JWT 标准的设计"></a>JWT 标准的设计</h1><p>一个JWT实际上就是一个字符串，它由三部分组成：头部、载荷与签名。编码之后的JWT看起来是这样的一串字符：</p>
+<pre><code>eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+.eyJzdWIiOiIxIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDFcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNDUxODg4MTE5LCJleHAiOjE0NTQ1MTYxMTksIm5iZiI6MTQ1MTg4ODExOSwianRpIjoiMzdjMTA3ZTQ2MDlkZGJjYzljMDk2ZWE1ZWU3NmM2NjcifQ
+.wyoQ95RjAyQ2FF3aj8EvCSaUmeP0KUqcCJDENNfnaT4  
+</code></pre><p>由.分为三段，下面我们具体讲解这三段字串：</p>
+<h3 id="一、头部"><a href="#一、头部" class="headerlink" title="一、头部"></a>一、头部</h3><p>JWT 需要一个头部，头部用于描述关于该JWT的最基本的信息，例如其类型以及签名所用的算法等。这也可以被表示成一个JSON对象：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"typ"</span>: <span class="string">"JWT"</span>,</div><div class="line">  <span class="attr">"alg"</span>: <span class="string">"HS256"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将上面的JSON对象进行base64编码可以得到下面的字符串：</p>
+<pre><code>eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+</code></pre><p>这个字符串我们将它称作 JWT 的 Header（头部）。</p>
+<h3 id="二、载荷（Payload）"><a href="#二、载荷（Payload）" class="headerlink" title="二、载荷（Payload）"></a>二、载荷（Payload）</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"sub"</span>: <span class="string">"1"</span>,</div><div class="line">    <span class="attr">"iss"</span>: <span class="string">"http://localhost:8000/auth/login"</span>,</div><div class="line">    <span class="attr">"iat"</span>: <span class="number">1451888119</span>,</div><div class="line">    <span class="attr">"exp"</span>: <span class="number">1454516119</span>,</div><div class="line">    <span class="attr">"nbf"</span>: <span class="number">1451888119</span>,</div><div class="line">    <span class="attr">"jti"</span>: <span class="string">"37c107e4609ddbcc9c096ea5ee76c667"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里面的前6个字段都是由JWT的标准所定义的。</p>
+<pre><code>sub: 该JWT所面向的用户
+iss: 该JWT的签发者
+iat(issued at): 在什么时候签发的token
+exp(expires): token什么时候过期
+nbf(not before)：token在此时间之前不能被接收处理
+jti：JWT ID 为web token提供唯一标识
+</code></pre><p>将上面的JSON对象进行base64编码可以得到下面的字符串：</p>
+<pre><code>eyJzdWIiOiIxIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDFcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNDUxODg4MTE5LCJleHAiOjE0NTQ1MTYxMTksIm5iZiI6MTQ1MTg4ODExOSwianRpIjoiMzdjMTA3ZTQ2MDlkZGJjYzljMDk2ZWE1ZWU3NmM2NjcifQ
+</code></pre><p>这个字符串我们将它称作 JWT 的 Payload（载荷）。</p>
+<h3 id="三、签名"><a href="#三、签名" class="headerlink" title="三、签名"></a>三、签名</h3><p>将上面的两个编码后的字符串都用句号.连接在一起（头部在前），就形成了：</p>
+<p>eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDFcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNDUxODg4MTE5LCJleHAiOjE0NTQ1MTYxMTksIm5iZiI6MTQ1MTg4ODExOSwianRpIjoiMzdjMTA3ZTQ2MDlkZGJjYzljMDk2ZWE1ZWU3NmM2NjcifQ</p>
+<p>最后，我们将上面拼接完的字符串用HS256算法进行加密。在加密的时候，我们还需要提供一个密钥（ secret ）:</p>
+<pre><code>HMACSHA256(
+    base64UrlEncode(header) + &quot;.&quot; +
+    base64UrlEncode(payload),
+    secret
+)
+</code></pre><p>这样就可以得到我们加密后的内容：</p>
+<pre><code>wyoQ95RjAyQ2FF3aj8EvCSaUmeP0KUqcCJDENNfnaT4
+</code></pre><p>这一部分又叫做签名。</p>
+<blockquote>
+<p>完整的 JWT</p>
+</blockquote>
+<p>最后将这一部分签名也拼接在被签名的字符串后面，我们就得到了完整的 JWT：</p>
+<pre><code>eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+.eyJzdWIiOiIxIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDFcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNDUxODg4MTE5LCJleHAiOjE0NTQ1MTYxMTksIm5iZiI6MTQ1MTg4ODExOSwianRpIjoiMzdjMTA3ZTQ2MDlkZGJjYzljMDk2ZWE1ZWU3NmM2NjcifQ
+.wyoQ95RjAyQ2FF3aj8EvCSaUmeP0KUqcCJDENNfnaT4
+</code></pre><h1 id="你可能遇到的问题"><a href="#你可能遇到的问题" class="headerlink" title="你可能遇到的问题"></a>你可能遇到的问题</h1><p>JWT Token 需要持久化在 Memcached 中吗？<br>    不应该这样做，这样就背离了JWT通过算法验证的初心。</p>
+<p>在退出登录时怎样实现 JWT Token 失效呢？<br>    退出登录， 只要客户端端把 Token 丢弃就可以了，服务器端不需要废弃 Token。</p>
+<p>怎样保持客户端长时间保持登录状态？<br>    服务器端提供刷新 Token 的接口， 客户端负责按一定的逻辑刷新服务器 Token。</p>
+<p>服务器端是否应该从 JWT中 取出 user_id 用于业务查询？</p>
+<pre><code>REST API 是无状态的，意味着服务器端每次请求都是独立的，即不依赖以前请求的结果，因此也不应该依赖 JWT token 做业务查询， 应该在请求报文中单独加个 user_id 字段。为了做用户水平越权的检查，可以在业务层判断传入的 user_id 和从 JWT token 中解析出的 user_id 是否一致， 有些业务可能会允许查不同用户的数据。
+</code></pre><h1 id="Laravel-框架-JWT-实战"><a href="#Laravel-框架-JWT-实战" class="headerlink" title="Laravel 框架 JWT 实战"></a>Laravel 框架 JWT 实战</h1><p>未完待续……</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/11/【每周一文】Laravel小伎俩Blade模板之forelse的使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【每周一文】Laravel小伎俩Blade模板之forelse的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/28/【每周一文】Git分支、标签管理与实战操作/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【每周一文】Git分支、标签管理与实战操作</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

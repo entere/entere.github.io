@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>P2P视频直播 WebRTC的技术实践【附源码】 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="WebRTC（http://webrtc.org/） 是 google主推的一个项目，旨在使得浏览器能为实时通信（RTC）提供简单的JavaScript接口。有了它，直接通过浏览器的 Web 页面就可以实现音视频聊天功能，无需任何插件。">
+<meta name="keywords" content="WebRTC,视频直播">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P2P视频直播 WebRTC的技术实践【附源码】">
+<meta property="og:url" content="http://entere.github.com/2015/09/23/P2P视频直播 WebRTC的技术实践【附源码】/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="WebRTC（http://webrtc.org/） 是 google主推的一个项目，旨在使得浏览器能为实时通信（RTC）提供简单的JavaScript接口。有了它，直接通过浏览器的 Web 页面就可以实现音视频聊天功能，无需任何插件。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-16T02:54:16.444Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="P2P视频直播 WebRTC的技术实践【附源码】">
+<meta name="twitter:description" content="WebRTC（http://webrtc.org/） 是 google主推的一个项目，旨在使得浏览器能为实时通信（RTC）提供简单的JavaScript接口。有了它，直接通过浏览器的 Web 页面就可以实现音视频聊天功能，无需任何插件。">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/Phaser/" style="font-size: 10px;">Phaser</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-P2P视频直播 WebRTC的技术实践【附源码】" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/23/P2P视频直播 WebRTC的技术实践【附源码】/" class="article-date">
+  	<time datetime="2015-09-23T14:28:43.000Z" itemprop="datePublished">2015-09-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      P2P视频直播 WebRTC的技术实践【附源码】
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebRTC/">WebRTC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/视频直播/">视频直播</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>WebRTC（<a href="http://webrtc.org/）" target="_blank" rel="external">http://webrtc.org/）</a> 是 google主推的一个项目，旨在使得浏览器能为实时通信（RTC）提供简单的JavaScript接口。有了它，直接通过浏览器的 Web 页面就可以实现音视频聊天功能，无需任何插件。</p>
+</blockquote>
+<a id="more"></a> 
+<h1 id="WebRTC交互过程"><a href="#WebRTC交互过程" class="headerlink" title="WebRTC交互过程"></a>WebRTC交互过程</h1><p>要用WebRTC建立一个p2p通道需要经历二个步骤：</p>
+<h3 id="一、获得本机SDP描述符并交换"><a href="#一、获得本机SDP描述符并交换" class="headerlink" title="一、获得本机SDP描述符并交换"></a>一、获得本机SDP描述符并交换</h3><blockquote>
+<ol>
+<li><p>A和B打开浏览器后都调用getUserMedia获取本地视频流，在浏览器上播放；</p>
+</li>
+<li><p>B先进入房间，此时房间中没有其他用户，B在房间下建立属于自己的节点，且监听自己的信箱；</p>
+</li>
+<li><p>A进入房间，发现B已存在，此时A通过PC所提供的createOffer()方法建立一个包含A的SDP描述符的offer信令；</p>
+</li>
+</ol>
+<p>4.A通过PC所提供的setLocalDescription()方法，将A的SDP描述符交给A的PC实例(就是存储到本地)；</p>
+<p>5.A将offer信令通过服务器发送到B的信箱，同时，A也监听自己的信箱；</p>
+<ol>
+<li><p>B发现信箱下有信件，查知此信为A的offer，于是将offer信令中所包含的的SDP描述符提取出来，通过PC所提供的setRemoteDescription()方法交给B的PC实例(就是存储到本地)；</p>
+</li>
+<li><p>B通过PC所提供的createAnswer()方法建立一个包含B的SDP描述符的answer信令；</p>
+</li>
+<li><p>B通过PC所提供的setLocalDescription()方法，将B的SDP描述符交给B的PC实例(就是存储到本地)；</p>
+</li>
+<li><p>B将answer信令通过服务器发送到A的信箱；</p>
+</li>
+</ol>
+<p>10.A接收到B的answer信令后，将其中B的SDP描述符提取出来，调用setRemoteDescripttion()方法交给A的PC实例(就是存储到本地)；</p>
+</blockquote>
+<p>通过在这一系列的信令交换之后，A和B所创建的PC实例都包含A和B的SDP描述符了，完成了两件事的第一件。我们还需要完成第二件事——获取连接两端主机的网络地址</p>
+<h3 id="二、过ICE框架建立NAT-防火墙穿越的连接，连接两段主机的网络地址"><a href="#二、过ICE框架建立NAT-防火墙穿越的连接，连接两段主机的网络地址" class="headerlink" title="二、过ICE框架建立NAT/防火墙穿越的连接，连接两段主机的网络地址"></a>二、过ICE框架建立NAT/防火墙穿越的连接，连接两段主机的网络地址</h3><p>这个网络地址应该是能从外界直接访问，WebRTC使用ICE框架来获得这个地址。RTCPeerConnection在创立的时候可以将ICE服务器的地址传递进去，如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> iceServerConfig = &#123;</div><div class="line">    iceServers: [</div><div class="line">        &#123;<span class="attr">urls</span>: <span class="string">"stun:23.21.150.121"</span>&#125;,</div><div class="line">        &#123;<span class="attr">urls</span>: <span class="string">"stun:stun.l.google.com:19302"</span>&#125;,</div><div class="line">        &#123;<span class="attr">urls</span>: <span class="string">"turn:numb.viagenie.ca"</span>, <span class="attr">credential</span>: <span class="string">"webrtcdemo"</span>, <span class="attr">username</span>: <span class="string">"louis%40mozilla.com"</span>&#125;</div><div class="line">    ]</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> pc = <span class="keyword">new</span> RTCPeerConnection(iceServerConfig);</div></pre></td></tr></table></figure>
+<p>当然这个地址也需要交换，还是以AB两位为例，交换的流程如下（RTCPeerConnection简称PC）：</p>
+<blockquote>
+<ol>
+<li>A、B各创建配置了ICE服务器的PC实例，并为其添加onicecandidate事件回调</li>
+<li>当网络候选可用时，将会调用onicecandidate函数</li>
+<li>在回调函数内部，A或B将网络候选的消息封装在ICE Candidate信令中，通过服务器中转，传递给对方</li>
+<li>甲或乙接收到对方通过服务器中转所发送过来ICE Candidate信令时，将其解析并获得网络候选，将其通过PC实例的addIceCandidate()方法加入到PC实例中</li>
+</ol>
+</blockquote>
+<p>这样连接就创立完成了，可以向RTCPeerConnection中通过addStream()加入流来传输媒体流数据。将流加入到RTCPeerConnection实例中后，对方就可以通过onaddstream所绑定的回调函数监听到了。调用addStream()可以在连接完成之前，在连接建立之后，对方一样能监听到媒体流</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>代码已上传到github </p>
+<p><a href="https://github.com/entere/dortc" target="_blank" rel="external">点我查获取源码</a></p>
+<p><a href="http://219.238.250.38:3000/" target="_blank" rel="external">点我查看Demo</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://codelabs.developers.google.com/codelabs/webrtc-web/#0" target="_blank" rel="external">WebRTC codelab</a><br><a href="http://html5rocks.com/en/tutorials/webrtc/basics" target="_blank" rel="external">Getting Started With WebRTC</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API" target="_blank" rel="external">developer.mozilla.org</a><br><a href="http://lingyu.wang/#/" target="_blank" rel="external">天镶的博客</a><br><a href="https://apprtc.appspot.com/" target="_blank" rel="external">apprtc</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/28/Android用到的框架/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android用到的框架
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/20/利用ffmpeg将MP4文件切成m3u8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">利用ffmpeg将MP4文件切成m3u8</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

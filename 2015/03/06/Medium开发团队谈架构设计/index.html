@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Medium开发团队谈架构设计 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="转载自infoQ 背景说到底，Medium是个社交网络，人们可以在这里分享有意思的故事和想法。据统计，目前累积的用户阅读时间已经超过14亿分钟，合两千六百年。 我们支持着每个月两千五百万的读者以及每周数以万计的文章发布。我们不想Medium的文章以阅读量为成功的依据，而是观点取胜。在Medium，文章的观点比作者的名头更重要。在这里，对话促进想法，并且很看重文字的力量。 我是Medium开发团队的">
+<meta name="keywords" content="medium,架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Medium开发团队谈架构设计">
+<meta property="og:url" content="http://entere.github.com/2015/03/06/Medium开发团队谈架构设计/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="转载自infoQ 背景说到底，Medium是个社交网络，人们可以在这里分享有意思的故事和想法。据统计，目前累积的用户阅读时间已经超过14亿分钟，合两千六百年。 我们支持着每个月两千五百万的读者以及每周数以万计的文章发布。我们不想Medium的文章以阅读量为成功的依据，而是观点取胜。在Medium，文章的观点比作者的名头更重要。在这里，对话促进想法，并且很看重文字的力量。 我是Medium开发团队的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-16T02:54:12.527Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Medium开发团队谈架构设计">
+<meta name="twitter:description" content="转载自infoQ 背景说到底，Medium是个社交网络，人们可以在这里分享有意思的故事和想法。据统计，目前累积的用户阅读时间已经超过14亿分钟，合两千六百年。 我们支持着每个月两千五百万的读者以及每周数以万计的文章发布。我们不想Medium的文章以阅读量为成功的依据，而是观点取胜。在Medium，文章的观点比作者的名头更重要。在这里，对话促进想法，并且很看重文字的力量。 我是Medium开发团队的">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/Phaser/" style="font-size: 10px;">Phaser</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Medium开发团队谈架构设计" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/06/Medium开发团队谈架构设计/" class="article-date">
+  	<time datetime="2015-03-06T14:12:03.000Z" itemprop="datePublished">2015-03-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Medium开发团队谈架构设计
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/medium/">medium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/架构/">架构</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.infoq.com/cn" target="_blank" rel="external">转载自infoQ</a></p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>说到底，Medium是个社交网络，人们可以在这里分享有意思的故事和想法。据统计，目前累积的用户阅读时间已经超过14亿分钟，合两千六百年。</p>
+<p>我们支持着每个月两千五百万的读者以及每周数以万计的文章发布。我们不想Medium的文章以阅读量为成功的依据，而是观点取胜。在Medium，文章的观点比作者的名头更重要。在这里，对话促进想法，并且很看重文字的力量。</p>
+<p>我是Medium开发团队的负责人，此前在Google工作，负责开发Google+和Gmail，还创立了Closure项目。业余时间我喜欢滑雪跳伞和丛林冒险。</p>
+<a id="more"></a> 
+<h3 id="团队介绍"><a href="#团队介绍" class="headerlink" title="团队介绍"></a>团队介绍</h3><p>说起团队我非常自豪，这是一群富有好奇心而且想法丰富的天才，大家凑到一块是想做大事的。</p>
+<p>团队以跨功能的任务驱动，这样每个人既可以专攻，又可以毫无压力的对整个架构有所贡献。我们的理念就是接触的方面越多，对团队的锻炼越大。更多关于团队的理念见此。</p>
+<p>在工作组织方面，我们有着很大的自由度，当然作为一个公司组成，我们还是有季度目标的，并且鼓励敏捷开发模式。我们使用GitHub进行code review和问题跟踪，用Google Apps作为邮件、文档和表单系统。跟很多团队习惯使用Trello不同，我们是Slack和slack机器人的重度用户。</p>
+<h3 id="原始架构"><a href="#原始架构" class="headerlink" title="原始架构"></a>原始架构</h3><p>最开始的时候，Medium部署在EC2上，用Node.js实现，后来公测的时候迁移到了DynamoDB。</p>
+<p>其中有个节点用来处理图片，负责将复杂的处理工作转向GraphicsMagick。还有一个节点用作后台的SQS队列处理。</p>
+<p>我们用SES处理邮件，S3做静态元素服务器，CloudFront做CDN，nginx作为反向代理，Datadog用来监控，Pagerduty用来告警。</p>
+<p>在线编辑器用了TinyMCE。上线之前我们已经开始使用Closure编译器以及部分的Closure库，但是模板还是用的Handlebars。</p>
+<h3 id="当前架构"><a href="#当前架构" class="headerlink" title="当前架构"></a>当前架构</h3><p>虽然Medium表面看起来很简单，但是了解其后台的复杂性后，你会大吃一惊。有人会说，这就是个博客啊，用Rails之类的一周就能搞定了。</p>
+<p>总之，闲话不多说，我们自底向上介绍以后再做判断。</p>
+<h3 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h3><p>Medium目前运行在Amazon虚拟私有云，使用Ansible做系统管理，它支持配置文件模式，我们将文件纳入代码版本管理，这样就可以随时回滚随时掌控。</p>
+<p>Medium的后台是个面向服务的架构，运行了大概二十几个产品服务。划分服务的依据取决于这部分功能的独立性，以及对资源的使用特性。</p>
+<p>Medium的主体仍然是Node.js完成，方便前端和后端的代码共享，主要是文章编辑和发布这个过程。Node大部分时候不错，但阻塞event循环的时候会有性能问题。为了缓解，我们在每台机器上启动多个Node实例，将对性能要求比较高的任务分配给专门的实例。同时我们还深入V8运行时环境查看更加细节的耗时，基本上是JSON去串行化的时候的对象具体化耗时较多。</p>
+<p>我们还用Go语言做了一些辅助服务。因为Go非常容易编译打包和发布。相比Java语言的冗长罗嗦和虚拟机，Go语言在类型安全方面做的很到位。就个人习惯来讲，我比较喜欢在团队内部推广强类型语言，因为这类语言能够提高项目的清晰度，不纠结。</p>
+<p>目前静态元素大部分是通过CloudFlare提供的，还有5%通过Fastly，5%通过CloudFront，这么做是为了让两者的缓存得到更新，用于一些紧急的情况。最近我们在应用流量上也使用了CloudFlare，当时主要是为了防止DDOS攻击，但随之而来的性能提升也是我们愿意看到的。</p>
+<p>我们使用Nginx和HAProxy做反向代理和负载均衡，来满足我们所需功能的维恩图。</p>
+<p>我们仍然使用Datadog来监控，Pagerduty来告警。现在又增加了ELK（Elasticsearch、Logstash、Kibana）来进行产品问题调试。</p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>DynamoDB仍然是我们的主力数据库，但是用起来也不是毫无问题。目前遇到的比较棘手的是大V用户展开和虚拟event过程中的热键问题。我们专门在数据库前面做了一个Redis缓存集群，来缓解这些问题。到底为开发者优化还是为产品稳定性优化的问题通常会引发争执，我们也一直在尝试中和两者的矛盾。</p>
+<p>目前我们开始在存储新数据上使用Amazon Aurora，它可以提供更灵活的查询和过滤功能。</p>
+<p>我们使用Neo4J存储Medium网络中实体之间的关系，运行在有两个副本的主节点上。用户、文章、标签和收藏都属于图中的节点。边则是在实体创建和用户进行推荐高亮等动作时生成。我们通过在图中游走来过滤和推荐文章。</p>
+<h3 id="数据平台"><a href="#数据平台" class="headerlink" title="数据平台"></a>数据平台</h3><p>早期我们对数据非常渴望，不断尝试数据分析框架来辅助商业和产品决策。最近我们则是利用同样的框架来反馈产品系统，支持Explore等数据驱动功能。</p>
+<p>我们采用Amazon Redshift作为数据仓库，为生产工具提供可变存储和处理系统。我们持续将诸如用户和文章等核心数据从Dynamo导入Redshift，还将诸如文章被浏览被滚动等event日志从S3导入Redshift。</p>
+<p>任务通过一个内部调度和监控工具Conduit调度。我们用了一个基于断言的调度模型，只有条件满足的时候，任务才会执行。从产品角度来讲，这是不可或缺的：数据制造方应该与数据消费方隔离，还要简化配置，保持系统的可预见和可调试性。</p>
+<p>Redshift的SQL检索目前运行不错，但我们时不时需要读取和存储数据，所以后期增加了Apache Spark作为ETL，Spark具有很好的灵活性和扩展能力。随着产品的推进，估计后面Spark会成为我们数据流水线的主要工具。</p>
+<p>我们使用Protocol Buffers作为schema来确保分布式系统的各层次间保持同步，包括移动应用、web服务和数据仓库等。通过定制化的选项，我们将schema标记上更加细化的配置，如带有表名和索引，以及长度等校验约束。</p>
+<p>用户也需要保持同步，这样移动端和网页端就可以保持日志的一致性了，同时方便产品科学家们用同样的方式解析字段。我们帮助项目成员从.proto文件中生成消息、字段和文档等内容，进而利用所得数据开展研究。</p>
+<h3 id="图片服务器"><a href="#图片服务器" class="headerlink" title="图片服务器"></a>图片服务器</h3><p>我们的图片服务器现在用Go语言实现，采用瀑布型策略来提供处理过的图片。服务器使用groupcache，是memcahce的替代品，可以帮助减轻服务器之间的重复工作。而内存级缓存则是用了一个S3的持续缓存。图片的处理是请求来触发的。这给了我们的架构设计师灵活改变图片展示的自由度，为不同平台优化，而且避免了大量的生成不同尺寸图片的操作。</p>
+<p>目前Medium对图片主要支持放缩和裁剪，但原始版本中还支持颜色清洗和锐化等操作。处理动图很痛苦，具体后续可以写一篇文章来解释。</p>
+<h3 id="文本标注"><a href="#文本标注" class="headerlink" title="文本标注"></a>文本标注</h3><p>文本标注是个有意思的功能，用了一个小型Go服务器，跟PhantomJS接口形成渲染进程。</p>
+<p>我一直想要把渲染进程换到Pango，但是在实践过程中，能在HTML中摆放图片的能力的确更灵活。而从功能的使用频率来看，这意味着更容易开发和管控。</p>
+<h3 id="自定义域名"><a href="#自定义域名" class="headerlink" title="自定义域名"></a>自定义域名</h3><p>我们允许用户为其Medium文章设置个性化域名。我们想做成单点登录且HTTPS全覆盖，因此实现起来颇有难度。我们专门准备了一批HAProxy服务器用来管理证书，并向主要应用服务器引导流量。初始化一个域的时候需要一些手动的工作，但是通过与Namecheap的定制化整合，我们将其大部分转换为自动化。证书验证和发布链接由专门服务负责。</p>
+<h3 id="网站前端"><a href="#网站前端" class="headerlink" title="网站前端"></a>网站前端</h3><p>网页端这块，我们有自主研发的单网页应用框架，使用Closure标准库。我们使用Closure模板渲染客户端和服务端，然后使用Closure编译器来缩减代码并划分模块。编辑器是我们网页端应用最复杂的部分，具体参见Nick此前的文章。</p>
+<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h3><p>我们的两个应用都是原生的，尽量避免使用网页视图。</p>
+<p>在iOS上，我们使用了一系列的自建框架，以及系统原生组件。在网络层，我们用NSURLSession发起请求，用Mantle解析JSON并映射到模型。我们还有一层基于NSKeyedArchiver的缓冲层。对于将条目渲染为共同主题的列表，我们有一个通用方法，这让我们能够快速为不同类型的内容构建新列表。文章界面是一个定制布局的UICollectionView。我们使用共享组件来渲染全文界面和预览界面。</p>
+<p>应用代码的每一次提交都会编译后推送给Medium员工，这样我们能够很快尝试新版本。应用商店的版本是滞后于新版本的，但我们也一直在尝试更快的发布，虽然可能仅仅是几处小更新。</p>
+<p>对于测试，我们使用XCTest和OCMock。</p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p>在Android方面，我们与当前的SDK和支持库版本保持一致。我们并没有使用任何复杂的框架，而是倾向于为重复出现的问题构建持续性的模式。我们利用guava弥补Java中所有的缺失。另一方面来讲，我们也倾向于使用第三方库来解决特别的问题。我们还利用protocol buffers定义了API，用以生成应用中的对象。</p>
+<p>我们利用mockito和robolectric。我们会开发一些高层测试来运转activity和poke：刚添加screen或要重构的时候，先创建一些基本的版本，随着我们复现bug它们也会进化。我们还会开发一些底层测试，来检测一个特定的类：随着新功能的增加我们会创建测试，这能够帮助我们思考和设计底层是如何交互的。</p>
+<p>每个提交都会作为alpha版本自动推送到play商店，然后到Medium员工（包括我们的Hatch，Medium内部版）。推送大部分发生在周五，我们会把alpha版本发送给测试小组，请他们用整个周末进行测试。然后，周一我们会从beta版推进至正式产品版。因为最近一批代码总是随时可以推送，因此一旦发现很严重的bug，我们就可以立即修复正式产品版。当我们怀疑某些新功能的时候，可以给测试小组更长的时间。开发比较亢奋的时候，也可能发布地更加频繁。</p>
+<h3 id="AB测试及其他"><a href="#AB测试及其他" class="headerlink" title="AB测试及其他"></a>AB测试及其他</h3><p>我们所有的客户端都用了服务器端提供的功能标记，称为variants，用于A|B测试以及指导未完成功能的开发。</p>
+<p>剩下还有一些框架相关的内容我没有提及：Algolia让我们在搜索相关功能上快速迭代，SendGrid处理邮件，Urban Airship用来发送提醒，SQS用来处理队列，Bloomd用作布隆过滤器，PubSubHubbub和Superfeedr用作提供RSS等等。</p>
+<h3 id="编译、测试和部署"><a href="#编译、测试和部署" class="headerlink" title="编译、测试和部署"></a>编译、测试和部署</h3><p>我们积极拥抱持续集成技术，随时随地准备发布，使用Jenkins来负责相关事宜。</p>
+<p>我们曾经使用Make作为编译系统，但是后来迁移到Pants。</p>
+<p>测试方面我们采用单元测试和HTTP层面功能测试两者结合的方式。所有提交的代码都需要通过测试才能够合并。我们跟Box团队合作，利用Cluster Runner来分布式运行测试，保证效率，而且能够和GitHub很好的整合在一起。</p>
+<p>我们大概不到15分钟就可以把某阶段的系统部署，顺利编译通过，留作正式产品的备选。主应用服务器通常一天要部署五次，多的时候十次。</p>
+<p>我们采用蓝绿部署。正式产品版本的流量发送给一个canary实例，发布进程会监控部署过程的错误率，必要时候通过调整内部DNS回滚。</p>
+<h3 id="面向未来"><a href="#面向未来" class="headerlink" title="面向未来"></a>面向未来</h3><p>到此，讲了足够多的干货！为了重构产品，获得更好的阅读体验，还有很长的路要走。我们仍然在努力为作者和发布者设计更多的功能。打比方来讲，线上阅读还是一片绿地，面对它有着无限可能，我们始终抱着开放的心态设计和实现功能。未来我们会努力用各种功能为用户提供高质量内容和价值。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/03/31/【git小知识】clone项目到一个非空目录/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【git小知识】clone项目到一个非空目录
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/03/常用Git命令清单/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">常用Git命令清单</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

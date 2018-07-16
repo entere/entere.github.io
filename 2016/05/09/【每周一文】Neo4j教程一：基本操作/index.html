@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>【每周一文】Neo4j教程一：基本操作 | Entere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Neo4j 基本概念Neo4j中不存在表的概念，只有两类：节点( Node )和关联( Relation )，可以简单理解为图里面的点和边。在数据查询中，节点一般用小括号()，关联用中括号[]。当然也隐含路径的概念，是用节点和关联表示的，如：(a)-[r]-&amp;gt;(b)，表示一条从节点a经关联r到节点b的路径。 节点：图中的对象可带若干名-值属性可带标签例： (m:Movie {title:”T">
+<meta name="keywords" content="图形数据库,Neo4j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【每周一文】Neo4j教程一：基本操作">
+<meta property="og:url" content="http://entere.github.com/2016/05/09/【每周一文】Neo4j教程一：基本操作/index.html">
+<meta property="og:site_name" content="Entere">
+<meta property="og:description" content="Neo4j 基本概念Neo4j中不存在表的概念，只有两类：节点( Node )和关联( Relation )，可以简单理解为图里面的点和边。在数据查询中，节点一般用小括号()，关联用中括号[]。当然也隐含路径的概念，是用节点和关联表示的，如：(a)-[r]-&amp;gt;(b)，表示一条从节点a经关联r到节点b的路径。 节点：图中的对象可带若干名-值属性可带标签例： (m:Movie {title:”T">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-16T02:54:37.816Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【每周一文】Neo4j教程一：基本操作">
+<meta name="twitter:description" content="Neo4j 基本概念Neo4j中不存在表的概念，只有两类：节点( Node )和关联( Relation )，可以简单理解为图里面的点和边。在数据查询中，节点一般用小括号()，关联用中括号[]。当然也隐含路径的概念，是用节点和关联表示的，如：(a)-[r]-&amp;gt;(b)，表示一条从节点a经关联r到节点b的路径。 节点：图中的对象可带若干名-值属性可带标签例： (m:Movie {title:”T">
+  
+    <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Entere</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">entere - 专注互联网开发</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/Phaser/" style="font-size: 10px;">Phaser</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://yijiebuyi.com/">一介布衣</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">PHP开发工程师，专注web开发</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Entere</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Entere</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">entere - 专注互联网开发</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/entere" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:entere@126.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-【每周一文】Neo4j教程一：基本操作" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/09/【每周一文】Neo4j教程一：基本操作/" class="article-date">
+  	<time datetime="2016-05-09T14:00:24.000Z" itemprop="datePublished">2016-05-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【每周一文】Neo4j教程一：基本操作
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Neo4j/">Neo4j</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图形数据库/">图形数据库</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Neo4j-基本概念"><a href="#Neo4j-基本概念" class="headerlink" title="Neo4j 基本概念"></a>Neo4j 基本概念</h1><p>Neo4j中不存在表的概念，只有两类：节点( Node )和关联( Relation )，可以简单理解为图里面的点和边。<br>在数据查询中，节点一般用小括号()，关联用中括号[]。<br>当然也隐含路径的概念，是用节点和关联表示的，如：(a)-[r]-&gt;(b)，表示一条从节点a经关联r到节点b的路径。</p>
+<p>节点：<br>图中的对象<br>可带若干名-值属性<br>可带标签<br>例： (m:Movie {title:”The Matrix”})</p>
+<p>关系：<br>连接节点（有类型、带方向）<br>可带若干名-值属性</p>
+<p>例：(a)-[:ACTED_IN {roles:[“Neo”]}]-&gt;(m)</p>
+<a id="more"></a> 
+<h1 id="安装-Neo4j"><a href="#安装-Neo4j" class="headerlink" title="安装 Neo4j"></a>安装 Neo4j</h1><p>下载 Neo4j  Community Edition 版，<a href="https://neo4j.com/download/community-edition/" target="_blank" rel="external">点此下载</a> 本文下载的 Mac OS 版。下好后一路安装即可。</p>
+<p>注意：我在在安装 Neo4j 时 Mac OS系统出现  【Neo4j 已损坏您应该将它移到废纸篓】  这样的提示，遇到这种情况，你需要把你 Mac 的 安全与隐私中的  选择“任何来源”即可。</p>
+<h1 id="Neo4j-Cypher-基本操作"><a href="#Neo4j-Cypher-基本操作" class="headerlink" title="Neo4j Cypher 基本操作"></a>Neo4j Cypher 基本操作</h1><h2 id="1-创建节点"><a href="#1-创建节点" class="headerlink" title="1. 创建节点"></a>1. 创建节点</h2><p>CREATE (节点名:标签 {属性key1:属性value1,属性key2:属性value2,……})</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">CREATE (p1:Person &#123; name: "entere", age: 30, pid: 1 &#125;)</div><div class="line">CREATE (p2:Person &#123; name: "fxd", age: 40, pid: 2 &#125;)</div></pre></td></tr></table></figure>
+<p>CREATE 创建数据<br>() 表示节点<br>p1:Person，p1 是节点名( node )，Person 是 节点的标签名( lable )<br>{} 是节点属性</p>
+<p>要记住的事情: </p>
+<p>Neo4j的数据库服务器使用该&lt;节点名称&gt;以存储Database.As一个Neo4j的DBA或开发该节点的详细信息，我们不能用它来访问节点的详细信息。</p>
+<p>Neo4j的数据库服务器创建一个&lt;标签名称&gt;作为别名到内部节点name.As一个Neo4j的DBA或开发人员，我们应该利用这个标签名称访问节点的详细信息。</p>
+<h2 id="2-创建关联"><a href="#2-创建关联" class="headerlink" title="2.创建关联"></a>2.创建关联</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">match (p1),(p2)</div><div class="line">where p1.pid=1 and p2.pid=2</div><div class="line">create (p1)-[:HAS_FANS]-&gt;(p2)</div></pre></td></tr></table></figure>
+<p>创建 p1 节点和 p2 节点的路径，此时变量 HAS_FANS 即代表关联，它也可以有标签</p>
+<p>注意：创建关联之前须先创建节点，如果先创建关联，在创建节点会出问题</p>
+<h2 id="3-创建多个节点和关系"><a href="#3-创建多个节点和关系" class="headerlink" title="3. 创建多个节点和关系"></a>3. 创建多个节点和关系</h2><p>CREATE (节点1), (节点2), (节点3), (节点4),<br>(节点1)-[关系1]-&gt;(节点2),<br>(节点2)-[关系2]-&gt;(节点3),<br>……</p>
+<h2 id="4-查找案例一"><a href="#4-查找案例一" class="headerlink" title="4. 查找案例一"></a>4. 查找案例一</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">CREATE </div><div class="line">(p1:Person &#123;name: "方兴东",uid:1&#125;),</div><div class="line">(p2:Person &#123;name: "甜夏",uid:2&#125;),</div><div class="line">(p3:Person &#123;name: "开心战士",uid:3&#125;),</div><div class="line">(p4:Person &#123;name: "狐狸猫",uid:4&#125;),</div><div class="line">(p5:Person &#123;name: "唐镇宇",uid:5&#125;),</div><div class="line">(p6:Person &#123;name: "郭思思",uid:6&#125;),</div><div class="line">(p7:Person &#123;name: "庄北",uid:7&#125;),</div><div class="line">(p1)-[:HAS_FANS]-&gt;(p2),</div><div class="line">(p1)-[:HAS_FANS]-&gt;(p3),</div><div class="line">(p1)-[:HAS_FANS]-&gt;(p4),</div><div class="line">(p1)-[:HAS_FANS]-&gt;(p5),</div><div class="line">(p1)-[:HAS_FANS]-&gt;(p6),</div><div class="line">(p2)-[:HAS_FANS]-&gt;(p3),</div><div class="line">(p2)-[:HAS_FANS]-&gt;(p4),</div><div class="line">(p2)-[:HAS_FANS]-&gt;(p1),</div><div class="line">(p4)-[:HAS_FANS]-&gt;(p3),</div><div class="line">(p3)-[:HAS_FANS]-&gt;(p4),</div><div class="line">(p3)-[:HAS_FANS]-&gt;(p7);</div><div class="line"></div><div class="line">MATCH (p:Person) RETURN p</div></pre></td></tr></table></figure>
+<h3 id="查询所有节点"><a href="#查询所有节点" class="headerlink" title="查询所有节点"></a>查询所有节点</h3><p>match (n) return n</p>
+<h3 id="查询某个节点"><a href="#查询某个节点" class="headerlink" title="查询某个节点"></a>查询某个节点</h3><p>match (a:Person {name:”方兴东”})-[:HAS_FANS]-&gt;(b) return a,b</p>
+<p>match p = (a:Person {name:”方兴东”})-[:HAS_FANS]-&gt;(b) return p;<br>match p = (a:Person {name:”方兴东”})-[:HAS_FANS]-&gt;(b) return nodes(p);<br>match p = (a:Person {name:”方兴东”})-[:HAS_FANS]-&gt;(b) return rels(p)</p>
+<h3 id="统计节点个数"><a href="#统计节点个数" class="headerlink" title="统计节点个数"></a>统计节点个数</h3><p>match (a:Person {name:”方兴东”})-[:HAS_FANS]-&gt;(b) return count(b)</p>
+<h3 id="查询任意关系"><a href="#查询任意关系" class="headerlink" title="查询任意关系"></a>查询任意关系</h3><p>match (a:Person {name:”方兴东”})-[*]-&gt;(b) return a,b</p>
+<h3 id="按照属性值排序"><a href="#按照属性值排序" class="headerlink" title="按照属性值排序"></a>按照属性值排序</h3><p>match (a:Person {name:”方兴东”})-[:HAS_FANS]-&gt;(b) return a,b order by b.uid desc</p>
+<h3 id="查询属性name的值是方兴东的节点，及其所有关联节点"><a href="#查询属性name的值是方兴东的节点，及其所有关联节点" class="headerlink" title="查询属性name的值是方兴东的节点，及其所有关联节点"></a>查询属性name的值是方兴东的节点，及其所有关联节点</h3><p>match (a)-[r]-&gt;(b) where a.name=’方兴东’ return a,b<br>match (a {name:’方兴东’})-[r]-&gt;(b) return a,b</p>
+<h3 id="查询属性name值是Kaine的节点，及其所有距离为1到3的关联节点"><a href="#查询属性name值是Kaine的节点，及其所有距离为1到3的关联节点" class="headerlink" title="查询属性name值是Kaine的节点，及其所有距离为1到3的关联节点"></a>查询属性name值是Kaine的节点，及其所有距离为1到3的关联节点</h3><p>match (a)-[<em>1..3]-&gt;(b) where a.name=’方兴东’ return a,b<br>match (a {name:’方兴东’})-[</em>1..3]-&gt;(b) return a,b </p>
+<h3 id="查询属性name的值是方兴东的节点，及其所有距离为2并且去除距离为1的节点"><a href="#查询属性name的值是方兴东的节点，及其所有距离为2并且去除距离为1的节点" class="headerlink" title="查询属性name的值是方兴东的节点，及其所有距离为2并且去除距离为1的节点"></a>查询属性name的值是方兴东的节点，及其所有距离为2并且去除距离为1的节点</h3><p>（在计算好友的好友时会用到，即如果a、b、c三个人都认识，如果仅计算跟a距离为2的人的时候会把b、c也算上，因为a-&gt;b-&gt;c，或者a-&gt;c-&gt;b都是通路）</p>
+<p>match (a)-[<em>2]-&gt;(b) where a.name=’方兴东’ and not (a)-[</em>1]-&gt;(b) return a,b </p>
+<h3 id="查询方兴东和开心战士的共同粉丝"><a href="#查询方兴东和开心战士的共同粉丝" class="headerlink" title="查询方兴东和开心战士的共同粉丝"></a>查询方兴东和开心战士的共同粉丝</h3><p>MATCH (p1:Person {name:”方兴东”})-[:HAS_FANS]-&gt;(x)&lt;-[:HAS_FANS]-(p2:Person {name:”开心战士”}) return x;</p>
+<p>注：关联的中括号内数字的含义<br>n 距离为n<br>..n 最大距离为n<br>n.. 最小距离为n<br>m..n 距离在m到n之间</p>
+<h3 id="查询-方兴东-到-庄北-的最短路径"><a href="#查询-方兴东-到-庄北-的最短路径" class="headerlink" title="查询 方兴东 到 庄北 的最短路径"></a>查询 方兴东 到 庄北 的最短路径</h3><p>match p = shortestPath( (p1:Person {name:”方兴东”})-[:HAS_FRIEND*..3]-&gt;(p2:Person {name:”庄北”}) ) return p;</p>
+<h2 id="5-查找案例二"><a href="#5-查找案例二" class="headerlink" title="5. 查找案例二"></a>5. 查找案例二</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">create </div><div class="line">(p3:User &#123;name:"张三"&#125;),</div><div class="line">(p4:User &#123;name:"李四"&#125;),</div><div class="line">(p5:User &#123;name:"王五"&#125;),</div><div class="line">(p6:User &#123;name:"赵六"&#125;),</div><div class="line">(p7:User &#123;name:"钱七"&#125;),</div><div class="line">(p8:User &#123;name:"孙八"&#125;),</div><div class="line">(p9:User &#123;name:"杨九"&#125;),</div><div class="line">(p10:User &#123;name:"吴十"&#125;),</div><div class="line">(p3)-[:HAS_FRIEND]-&gt;(p4),</div><div class="line">(p3)-[:HAS_FRIEND]-&gt;(p5),</div><div class="line">(p4)-[:HAS_FRIEND]-&gt;(p6),</div><div class="line">(p4)-[:HAS_FRIEND]-&gt;(p7),</div><div class="line">(p5)-[:HAS_FRIEND]-&gt;(p8),</div><div class="line">(p5)-[:HAS_FRIEND]-&gt;(p9),</div><div class="line">(p6)-[:HAS_FRIEND]-&gt;(p10);</div></pre></td></tr></table></figure>
+<h3 id="查询张三的直接朋友"><a href="#查询张三的直接朋友" class="headerlink" title="查询张三的直接朋友"></a>查询张三的直接朋友</h3><p>MATCH (p:User {name : “张三”})-[:HAS_FRIEND]-&gt;(f) return p,f;</p>
+<h3 id="查询张三的朋友的朋友"><a href="#查询张三的朋友的朋友" class="headerlink" title="查询张三的朋友的朋友"></a>查询张三的朋友的朋友</h3><p>MATCH (p:User {name : “张三”})-[:HAS_FRIEND]-&gt;()-[:HAS_FRIEND]-&gt;(f) return p,f;</p>
+<h3 id="查询张三所有的的朋友，包括朋友的朋友"><a href="#查询张三所有的的朋友，包括朋友的朋友" class="headerlink" title="查询张三所有的的朋友，包括朋友的朋友"></a>查询张三所有的的朋友，包括朋友的朋友</h3><p>MATCH (p:User {name : “张三”})-[*]-&gt;(f) return p,f;</p>
+<h3 id="查询张三到吴十的最短路径"><a href="#查询张三到吴十的最短路径" class="headerlink" title="查询张三到吴十的最短路径"></a>查询张三到吴十的最短路径</h3><p>match p = shortestPath( (p3:User {name:”张三”})-[:HAS_FRIEND*..15]-&gt;(p10:User {name:”吴十”}) ) return p;</p>
+<h2 id="5-索引"><a href="#5-索引" class="headerlink" title="5.索引"></a>5.索引</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">:schema 列出所有标签的所有记录</div><div class="line">:schema ls -l :YourLabel 列出指定标签的索引与约束</div><div class="line"></div><div class="line"></div><div class="line">CREATE CONSTRAINT ON (p:Person) ASSERT p.name IS UNIQUE //唯一约束 </div><div class="line">CREATE INDEX ON :Person(name);  //创建索引</div></pre></td></tr></table></figure>
+<h2 id="6-清空"><a href="#6-清空" class="headerlink" title="6.清空"></a>6.清空</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">match(n)</div><div class="line">optional match(n)-[r]-()</div><div class="line">delete n,r</div></pre></td></tr></table></figure>
+<p>create<br>(c1:Company {name:”ofo小黄车”,id:”1”}),<br>(c2:Company {name:”摩拜”,id:”2”}),<br>(m1:Manager {name:”肖敏”,id:”1”}),<br>(m2:Manager {name:”陈熙”,id:”2”}),<br>(m3:Manager {name:”薛鼎”,id:”3”}),<br>(m4:Manager {name:”胡玮炜”,id:”4”}),<br>(m5:Manager {name:”王晓峰”,id:”5”}),<br>(m6:Manager {name:”夏一平”,id:”6”}),<br>(s1:Stockholders {name:”真格基金”,id:”1”}),<br>(s2:Stockholders {name:”顺为基金”,id:”2”}),<br>(s3:Stockholders {name:”红杉资本”,id:”3”}),<br>(s4:Stockholders {name:”启明创投”,id:”4”}),<br>(c1)-[:高管]-&gt;(m1),<br>(c1)-[:高管]-&gt;(m2),<br>(c1)-[:高管]-&gt;(m3),<br>(c1)-[:股东]-&gt;(s1),<br>(c1)-[:股东]-&gt;(s2),<br>(c2)-[:高管]-&gt;(m4),<br>(c2)-[:高管]-&gt;(m5),<br>(c2)-[:高管]-&gt;(m6),<br>(c2)-[:股东]-&gt;(s3),<br>(c2)-[:股东]-&gt;(s4);</p>
+<p>create<br>(p1:Poster {title:”文章1”,id:”1”}),<br>(p2:Poster {title:”文章2”,id:”2”}),<br>(u1:User {nickname:”A”,id:”1”}),<br>(u2:User {nickname:”B”,id:”2”}),<br>(u3:User {nickname:”C”,id:”3”}),<br>(u4:User {nickname:”D”,id:”4”}),<br>(u5:User {nickname:”E”,id:”5”}),<br>(u6:User {nickname:”F”,id:”6”}),<br>(u7:User {nickname:”G”,id:”7”}),<br>(u1)-[:OPEN]-&gt;(p1),<br>(u1)-[:FORWARD]-&gt;(p1),<br>(u1)-[:SPREAD {roles:[“p1”]}]-&gt;(u2),<br>(u2)-[:OPEN]-&gt;(p1),<br>(u2)-[:FORWARD]-&gt;(p1),<br>(u2)-[:SPREAD {roles:[“p1”]}]-&gt;(u3),<br>(u2)-[:SPREAD {roles:[“p1”]}]-&gt;(u1),<br>(u3)-[:OPEN]-&gt;(p1),<br>(u3)-[:SPREAD {roles:[“p1”]}]-&gt;(u4),<br>(u3)-[:SPREAD {roles:[“p1”]}]-&gt;(u5),<br>(u3)-[:SPREAD {roles:[“p1”]}]-&gt;(u6),</p>
+<p>(u1)-[:OPEN]-&gt;(p2),<br>(u1)-[:FORWARD]-&gt;(p2),<br>(u1)-[:SPREAD {roles:[“p2”]}]-&gt;(u2),<br>(u2)-[:OPEN]-&gt;(p2),<br>(u2)-[:FORWARD]-&gt;(p2),<br>(u2)-[:SPREAD {roles:[“p2”]}]-&gt;(u3),<br>(u3)-[:OPEN]-&gt;(p2),<br>(u3)-[:SPREAD {roles:[“p2”]}]-&gt;(u7);</p>
+<p>match (a:User{name:”A”})-[r:SPREAD*..5]-&gt;(n) where 1 in r.article return a,n,r;</p>
+<p>create(a:User{name:”A”}),<br>(b:User{name:”B”}),<br>(c:User{name:”C”}),<br>(d:User{name:”D”}),<br>(e:User{name:”E”}),<br>(f:User{name:”F”}),<br>(g:User{name:”G”}),<br>(a)-[:SPREAD1]-&gt;(b),<br>(a)-[:SPREAD1]-&gt;(c),<br>(a)-[:SPREAD1]-&gt;(d),<br>(b)-[:SPREAD1]-&gt;(e),<br>(e)-[:SPREAD1]-&gt;(f),<br>(c)-[:SPREAD2]-&gt;(d),<br>(d)-[:SPREAD2]-&gt;(e),<br>(e)-[:SPREAD2]-&gt;(f),<br>(f)-[:SPREAD2]-&gt;(g);</p>
+<p>match (a:User{name:”A”})-[r:SPREAD1*..5]-&gt;(n) return a,n,r;</p>
+<p>START n = node(91018)<br>MATCH path = (n)-[r:SPREAD1*..5]-&gt;(x)<br>RETURN x</p>
+<p>create<br>(wxa1:WxArticle {nickname:”文章1”,id:”1”}),<br>(wxa2:WxArticle {nickname:”文章2”,id:”2”}),<br>(wxu1:WxUser {nickname:”A”,id:”1”}),<br>(wxu2:WxUser {nickname:”B”,id:”2”}),<br>(wxu3:WxUser {nickname:”C”,id:”3”}),<br>(wxu4:WxUser {nickname:”D”,id:”4”}),<br>(wxu5:WxUser {nickname:”E”,id:”5”}),<br>(wxu6:WxUser {nickname:”F”,id:”6”}),<br>(wxu7:WxUser {nickname:”G”,id:”7”}),<br>(wxa1)-[:SPREAD1]-&gt;(wxu1),<br>(wxa1)-[:SPREAD1]-&gt;(wxu5),<br>(wxa2)-[:SPREAD2]-&gt;(wxu6),<br>(wxa2)-[:SPREAD2]-&gt;(wxu7),<br>(wxu1)-[:SPREAD1]-&gt;(wxu2),<br>(wxu2)-[:SPREAD1]-&gt;(wxu3),<br>(wxu3)-[:SPREAD1]-&gt;(wxu4),<br>(wxu1)-[:SPREAD1]-&gt;(wxu6),<br>(wxu2)-[:SPREAD1]-&gt;(wxu7),<br>(wxu6)-[:SPREAD2]-&gt;(wxu1),<br>(wxu6)-[:SPREAD2]-&gt;(wxu3),<br>(wxu3)-[:SPREAD2]-&gt;(wxu4),<br>(wxu6)-[:SPREAD2]-&gt;(wxu7);</p>
+<p>match p =  (p1:WxArticle {id:”1”})-[:SPREAD1<em>..5]-&gt;(b) return  p;<br>match p =  (wxa1:WxArticle {id:”1”})-[:SPREAD1</em>..5]-&gt;(b) return  p;</p>
+<p>cypher是neo4j官网提供的声明式查询语言，非常强大，用它可以完成任意的图谱里面的查询过滤，我们知识图谱的一期项目 基本开发完毕，后面会陆续总结学习一下neo4j相关的知识。今天接着上篇文章来看下neo4j的cpyher查询的一些基本概念和语法。</p>
+<p>一，Node语法</p>
+<p>在cypher里面通过用一对小括号()表示一个节点，它在cypher里面查询形式如下：</p>
+<p>1，() 代表匹配任意一个节点</p>
+<p>2, (node1) 代表匹配任意一个节点，并给它起了一个别名</p>
+<p>3, (:Lable) 代表查询一个类型的数据</p>
+<p>4, (person:Lable) 代表查询一个类型的数据，并给它起了一个别名</p>
+<p>5, (person:Lable {name:”小王”}) 查询某个类型下，节点属性满足某个值的数据</p>
+<p>6, (person:Lable {name:”小王”,age:23})　节点的属性可以同时存在多个，是一个AND的关系</p>
+<p>二，关系语法</p>
+<p>关系用一对-组成，关系分有方向的进和出，如果是无方向就是进和出都查询</p>
+<p>1,-&gt; 指向一个节点</p>
+<p>2,-[role]-&gt; 给关系加个别名</p>
+<p>3,-[:acted_in]-&gt; 访问某一类关系</p>
+<p>4,-[role:acted_in]-&gt; 访问某一类关系，并加了别名</p>
+<p>5,-[role:acted_in {roles:[“neo”,”hadoop”]}]-&gt;</p>
+<p>访问某一类关系下的某个属性的关系的数据</p>
+<p>三，模式语法</p>
+<p>模式语法是节点和关系查询语法的结合，通过模式语法我们可以进行我们想要的任意复杂的查询</p>
+<p>(p1: Person:Actor {name:”tom”})-[role:acted_in {roles:[“neo”,”actor”]}]-(m1:Movie {title:”water”})<br>四, 模式变量</p>
+<p>为了增加模块化和减少重复，cypher允许把模式的结果指定在一个变量或者别名中，方便后续使用或操作</p>
+<p>path = (: Person)-[:ACTED_IN]-&gt;(:Movie)</p>
+<p>path是结果集的抽象封装，有多个函数可以直接从path里面提取数据如：</p>
+<p>nodes(path)：提取所有的节点</p>
+<p>rels(path): 提取所有的关系 和relationships(path)相等</p>
+<p>length(path): 获取路径长度</p>
+<p>五，条件</p>
+<p>cypher语句也是由多个关键词组成，像SQL的</p>
+<p>select name, count(<em>) from talbe where age=24 group by name having count(</em>) &gt;2  order by count(*) desc<br>多个关键字组成的语法，cypher也非常类似，每个关键词会执行一个特定的task来处理数据</p>
+<p>match: 查询的主要关键词</p>
+<p>create: 类似sql里面的insert</p>
+<p>filter，project，sort，page等都有对应的功能语句</p>
+<p>通过组合上面的一些语句，我们可以写出非常强大复杂的语法，来查询我们想要检索的内容，cypher会 自动解析语法并优化执行。</p>
+<p>一些实际的用法例子：</p>
+<p>1,创建</p>
+<p>create (:Movie {title:”驴得水”,released:2016})  return p;<br>执行成功，在neo4j的web页面我们能看到下面的信息</p>
+<p>+——————-+| No data returned. |<br>+——————-+Nodes created: 1<br>Properties set: 2<br>Labels added: 1<br>当然cypher也可以一次创建多个数据，并同时添加关系</p>
+<p>2,查询</p>
+<p>match (p: Person) return p; 查询Person类型的所有数据</p>
+<p>match (p: Person {name:”sun”}) return p; 查询名字等于sun的人</p>
+<p>match( p1: Person {name:”sun”} )-[rel:friend]-&gt;(p2) return p2.name , p2.age 查询sun的朋友的名字和年龄</p>
+<p>match (old) … create (new) create (old)-[rel:dr]-&gt;(new) return new 对已经存在的节点和新建的节点建立关系</p>
+<p>3,查询或更新</p>
+<p>merge 语法可以对已经存在的节点不做改变，对变化的部分会合并</p>
+<p>MERGE (m:Movie { title:”Cloud Atlas” })ON CREATE SET m.released = 2012RETURN m<br>merge …. on create set … return 语法支持合并更新</p>
+<p>4,筛选过滤</p>
+<p>cypher过滤也是用的和SQL一样的关键词where</p>
+<p>match (p1: Person) where p1.name=”sun” return p1;</p>
+<p>等同下面的</p>
+<p>match (p1: Person {name:”sun”}) return p1</p>
+<p>注意where条件里面支持 and ， or ，xor，not等boolean运算符，在json串里面都是and</p>
+<p>除此之外，where里面查询还支持正则查询</p>
+<p>match (p1: Person)-[r:friend]-&gt;(p2: Person)<br>where p1.name=~”K.+” or p2.age=24 or “neo” in r.rels<br>return p1,r,p2<br>关系过滤匹配使用not</p>
+<p>MATCH (p:Person)-[:ACTED_IN]-&gt;(m)WHERE NOT (p)-[:DIRECTED]-&gt;()RETURN p,m<br>5，结果集返回</p>
+<p>MATCH (p:Person)RETURN p, p.name AS name, upper(p.name), coalesce(p.nickname,”n/a”) AS nickname, { name: p.name,  label:head(labels(p))} AS person<br>结果集返回做去重</p>
+<p>match (n) return distinct n.name;<br>6,聚合函数</p>
+<p>cypher支持count,sum,avg,min,max</p>
+<p>match (: Person) return count(*)</p>
+<p>聚合的时候null会被跳过 count 语法 支持 count( distinct role )</p>
+<p>MATCH (actor:Person)-[:ACTED_IN]-&gt;(movie:Movie)&lt;-[:DIRECTED]-(director:Person)RETURN actor,director,count(*) AS collaborations<br>7,排序和分页</p>
+<p>MATCH (a:Person)-[:ACTED_IN]-&gt;(m:Movie)RETURN a,count(*) AS appearancesORDER BY appearances DESC SKIP 3 LIMIT 10;<br>8, 收集聚合结果</p>
+<p>MATCH (m:Movie)&lt;-[:ACTED_IN]-(a:Person)<br>RETURN m.title AS movie, collect(a.name) AS cast, count(*) AS actors<br>9, union 联合</p>
+<p>支持两个查询结构集一样的结果合并</p>
+<p>MATCH (actor:Person)-[r:ACTED_IN]-&gt;(movie:Movie)<br>RETURN actor.name AS name, type(r) AS acted_in, movie.title AS title<br>UNION （ALL）<br>MATCH (director:Person)-[r:DIRECTED]-&gt;(movie:Movie)<br>RETURN director.name AS name, type(r) AS acted_in, movie.title AS title<br>10, with</p>
+<p>with语句给cypher提供了强大的pipeline能力，可以一个或者query的输出，或者下一个query的输入 和return语句非常类似，唯一不同的是，with的每一个结果，必须使用别名标识。</p>
+<p>通过这个功能，我们可以轻而易举的做到在查询结果里面在继续嵌套查询。</p>
+<p>MATCH (person:Person)-[:ACTED_IN]-&gt;(m:Movie)<br>WITH person, count(*) AS appearances, collect(m.title) AS movies<br>WHERE appearances &gt; 1RETURN person.name, appearances, movies<br>注意在SQL里面，我们想过滤聚合结果，需要使用having语句但是在cypher里面我们可以配合with语句使用 where关键词来完成过滤</p>
+<p>11，添加约束或者索引</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/16/【每周一文】Neo4j教程二：二度人脉推荐/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【每周一文】Neo4j教程二：二度人脉推荐
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/17/【每周一文】实现文章转发朋友圈后自动下发红包功能/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【每周一文】实现文章转发朋友圈后自动下发红包功能</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'entere'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Entere
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
