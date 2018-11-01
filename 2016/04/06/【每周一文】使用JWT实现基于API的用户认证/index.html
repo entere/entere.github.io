@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>【每周一文】使用JWT实现基于API的用户认证 | Entere</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。 2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JWT">
+  <meta name="description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。   2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JW">
 <meta name="keywords" content="JWT,API">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【每周一文】使用JWT实现基于API的用户认证">
 <meta property="og:url" content="http://entere.github.com/2016/04/06/【每周一文】使用JWT实现基于API的用户认证/index.html">
 <meta property="og:site_name" content="Entere">
-<meta property="og:description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。 2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JWT">
+<meta property="og:description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。   2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JW">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-07-16T02:54:49.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【每周一文】使用JWT实现基于API的用户认证">
-<meta name="twitter:description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。 2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JWT">
+<meta name="twitter:description" content="什么是 JWT？JWT 全名 JSON Web Token，是 Auth0 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：  1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。   2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JW">
   
     <link rel="alternative" href="/atom.xml" title="Entere" type="application/atom+xml">
   
@@ -26,7 +26,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div class="left-col">
@@ -117,7 +117,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/Phaser/" style="font-size: 10px;">Phaser</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CGI/" style="font-size: 10px;">CGI</a> <a href="/tags/Composer/" style="font-size: 10px;">Composer</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Neo4j/" style="font-size: 18px;">Neo4j</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/PHPcs/" style="font-size: 10px;">PHPcs</a> <a href="/tags/Phaser/" style="font-size: 10px;">Phaser</a> <a href="/tags/RecyclerView/" style="font-size: 12px;">RecyclerView</a> <a href="/tags/Toolbar/" style="font-size: 10px;">Toolbar</a> <a href="/tags/WebRTC/" style="font-size: 10px;">WebRTC</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/cors/" style="font-size: 10px;">cors</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/iconfont/" style="font-size: 10px;">iconfont</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/laravel/" style="font-size: 12px;">laravel</a> <a href="/tags/m3u8/" style="font-size: 10px;">m3u8</a> <a href="/tags/medium/" style="font-size: 12px;">medium</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/公钥/" style="font-size: 10px;">公钥</a> <a href="/tags/图形数据库/" style="font-size: 18px;">图形数据库</a> <a href="/tags/大话设计模式php/" style="font-size: 10px;">大话设计模式php</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/开发规范/" style="font-size: 10px;">开发规范</a> <a href="/tags/微信/" style="font-size: 12px;">微信</a> <a href="/tags/微信支付/" style="font-size: 10px;">微信支付</a> <a href="/tags/排版/" style="font-size: 10px;">排版</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/教程/" style="font-size: 10px;">教程</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/私钥/" style="font-size: 10px;">私钥</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/红包/" style="font-size: 10px;">红包</a> <a href="/tags/视频直播/" style="font-size: 10px;">视频直播</a> <a href="/tags/设计模式/" style="font-size: 12px;">设计模式</a> <a href="/tags/资源文件/" style="font-size: 10px;">资源文件</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/防盗链/" style="font-size: 10px;">防盗链</a>
 					</div>
 				</section>
 				
@@ -189,7 +189,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-【每周一文】使用JWT实现基于API的用户认证" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-【每周一文】使用JWT实现基于API的用户认证" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/06/【每周一文】使用JWT实现基于API的用户认证/" class="article-date">
@@ -199,7 +199,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -226,12 +226,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="什么是-JWT？"><a href="#什么是-JWT？" class="headerlink" title="什么是 JWT？"></a>什么是 JWT？</h1><p>JWT 全名 JSON Web Token，是 <a href="https://auth0.com/" target="_blank" rel="external">Auth0</a> 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：</p>
+        <h1 id="什么是-JWT？"><a href="#什么是-JWT？" class="headerlink" title="什么是 JWT？"></a>什么是 JWT？</h1><p>JWT 全名 JSON Web Token，是 <a href="https://auth0.com/" target="_blank" rel="noopener">Auth0</a> 提出的通过对 JSON 进行加密签名来实现授权验证的方案，它是一种基于 Token 的认证方案。简单的说，JWT 就是一种 Token 的编码算法，应用流程大体如下：</p>
 <blockquote>
 <p>1、客户端将用户名和密码以 HTTP POST 请求的方式发送给服务器。</p>
+</blockquote>
+<blockquote>
 <p>2、服务器接受到用户名密码并验证通过后，用一个密钥生成 JWT，并将这个JWT 返回给客户端。</p>
+</blockquote>
+<blockquote>
 <p>3、客户端将 JWT 保存在本地，每次在向服务器请求资源时把 JWT 包含在  HTTP 请求报文里面（authorization header 里面或者请求参数中），然后发送请求给服务器。</p>
+</blockquote>
+<blockquote>
 <p>4、服务器可以在 JWT 中提取用户相关信息。进行验证。</p>
+</blockquote>
+<blockquote>
 <p>5、服务器验证完成后，发送响应结果给客户端。</p>
 </blockquote>
 <a id="more"></a> 
@@ -243,11 +251,11 @@
 .wyoQ95RjAyQ2FF3aj8EvCSaUmeP0KUqcCJDENNfnaT4  
 </code></pre><p>由.分为三段，下面我们具体讲解这三段字串：</p>
 <h3 id="一、头部"><a href="#一、头部" class="headerlink" title="一、头部"></a>一、头部</h3><p>JWT 需要一个头部，头部用于描述关于该JWT的最基本的信息，例如其类型以及签名所用的算法等。这也可以被表示成一个JSON对象：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"typ"</span>: <span class="string">"JWT"</span>,</div><div class="line">  <span class="attr">"alg"</span>: <span class="string">"HS256"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"typ"</span>: <span class="string">"JWT"</span>,</span><br><span class="line">  <span class="attr">"alg"</span>: <span class="string">"HS256"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>将上面的JSON对象进行base64编码可以得到下面的字符串：</p>
 <pre><code>eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
 </code></pre><p>这个字符串我们将它称作 JWT 的 Header（头部）。</p>
-<h3 id="二、载荷（Payload）"><a href="#二、载荷（Payload）" class="headerlink" title="二、载荷（Payload）"></a>二、载荷（Payload）</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"sub"</span>: <span class="string">"1"</span>,</div><div class="line">    <span class="attr">"iss"</span>: <span class="string">"http://localhost:8000/auth/login"</span>,</div><div class="line">    <span class="attr">"iat"</span>: <span class="number">1451888119</span>,</div><div class="line">    <span class="attr">"exp"</span>: <span class="number">1454516119</span>,</div><div class="line">    <span class="attr">"nbf"</span>: <span class="number">1451888119</span>,</div><div class="line">    <span class="attr">"jti"</span>: <span class="string">"37c107e4609ddbcc9c096ea5ee76c667"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="二、载荷（Payload）"><a href="#二、载荷（Payload）" class="headerlink" title="二、载荷（Payload）"></a>二、载荷（Payload）</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"sub"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="attr">"iss"</span>: <span class="string">"http://localhost:8000/auth/login"</span>,</span><br><span class="line">    <span class="attr">"iat"</span>: <span class="number">1451888119</span>,</span><br><span class="line">    <span class="attr">"exp"</span>: <span class="number">1454516119</span>,</span><br><span class="line">    <span class="attr">"nbf"</span>: <span class="number">1451888119</span>,</span><br><span class="line">    <span class="attr">"jti"</span>: <span class="string">"37c107e4609ddbcc9c096ea5ee76c667"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里面的前6个字段都是由JWT的标准所定义的。</p>
 <pre><code>sub: 该JWT所面向的用户
 iss: 该JWT的签发者
