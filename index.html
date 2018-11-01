@@ -214,17 +214,6 @@
       
         <h1 id="MAC下安装PHPcs"><a href="#MAC下安装PHPcs" class="headerlink" title="MAC下安装PHPcs"></a>MAC下安装PHPcs</h1><p>这里我们使用comooser 安装PHPcs</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">composer global require squizlabs/php_codesniffer</span><br><span class="line">composer global require phpmd/phpmd</span><br><span class="line">composer global require friendsofphp/php-cs-fixer</span><br></pre></td></tr></table></figure>
-<p>安装好后会在 ~/.composer/vendor/bin 下看到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pdepend      php-cs-fixer phpcbf       PHPcs        phpmd</span><br></pre></td></tr></table></figure>
-<h1 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h1><p>vi ~/.bash_prifole 在结尾处添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&quot;~/.composer/vendor/bin:$PATH&quot;</span><br></pre></td></tr></table></figure>
-<p>然后执行 source ~/.bash_prifole</p>
-<p>这里 PHPcs –help命令就生效了</p>
-<h1 id="在Sublime-下使用-PHPcs"><a href="#在Sublime-下使用-PHPcs" class="headerlink" title="在Sublime 下使用 PHPcs"></a>在Sublime 下使用 PHPcs</h1><p>command+Shift+P 输入 install 找到PHPcs并安装</p>
-<p>安装好后在这Preferences -&gt; Package Setting -&gt; PHP Code Sniffer -&gt; Setting – User中添加添加配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    &quot;phpcs_executable_path&quot;: &quot;~/.composer/vendor/bin/phpcs&quot;,</span><br><span class="line">    &quot;php_cs_fixer_executable_path&quot;: &quot;~/.composer/vendor/bin/php-cs-fixer&quot;,</span><br><span class="line">    &quot;phpcbf_executable_path&quot;: &quot;~/.composer/vendor/bin/phpcbf&quot;,</span><br><span class="line">    &quot;phpmd_executable_path&quot;: &quot;~/.composer/vendor/bin/phpmd&quot;,</span><br><span class="line">    &quot;phpcs_additional_args&quot;: &#123;</span><br><span class="line">        &quot;--standard&quot;: &quot;PSR2&quot;,</span><br><span class="line">        &quot;-n&quot;: &quot;&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;phpcs_show_errors_on_save&quot;: true,</span><br><span class="line">    &quot;phpcs_outline_for_errors&quot;: false,</span><br><span class="line">    &quot;php_cs_fixer_on_save&quot;: false</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>好了，不符合规范的代码的save里就会提示出来</p>
-
       
     </div>
     
@@ -237,6 +226,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a href="/2018/11/01/用phpcs规范你的PHP开发/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
