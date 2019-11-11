@@ -216,7 +216,7 @@
 <p>之前系统默认使用了0配置的<code>mdns</code>作为服务发现，本节课我们使用<code>etcd</code>代替<code>mdns</code></p>
 </blockquote>
 <h1 id="安装-etcd"><a href="#安装-etcd" class="headerlink" title="安装 etcd"></a>安装 etcd</h1><p>根据<a href="https://github.com/etcd-io/etcd/blob/master/Documentation/dl_build.md" target="_blank" rel="noopener">官方文档</a>进行安装</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/etcd-io/etcd.git</span><br><span class="line">cd etcd</span><br><span class="line">./build</span><br><span class="line">cd bin</span><br><span class="line">cp etcd etcdctl /usr/local/bin</span><br><span class="line"><span class="meta">#</span>或者</span><br><span class="line">brew install etcd</span><br><span class="line"><span class="meta">#</span>启动etcd</span><br><span class="line">etcd</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/etcd-io/etcd.git</span><br><span class="line">cd etcd</span><br><span class="line">./build</span><br><span class="line">cd bin</span><br><span class="line">cp etcd etcdctl /usr/local/bin</span><br><span class="line"><span class="meta">#</span><span class="bash">或者</span></span><br><span class="line">brew install etcd</span><br><span class="line"><span class="meta">#</span><span class="bash">启动etcd</span></span><br><span class="line">etcd</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -378,68 +378,6 @@
 
 
   
-    <article id="post-Golang使用go-mod配置加载本地模块" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/11/08/Golang使用go-mod配置加载本地模块/" class="article-date">
-  	<time datetime="2019-11-08T08:26:49.000Z" itemprop="datePublished">2019-11-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/08/Golang使用go-mod配置加载本地模块/">Golang使用go.mod配置加载本地模块</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>如何在当前项目中加载另一个本地正在开发的模块呢？go 提供了replace命令，当我们遇上有些包无法下载（暂未上传或需要外网访问）时，我们可以在mod文件中用replace命令，让程序去指定的地方找代码，如：</p>
-<p>看一下我们的go.mod的配置<br>go.mod</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">module github.com/entere/micro-examples</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="number">1.13</span></span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">    github.com/golang/protobuf v1<span class="number">.3</span><span class="number">.2</span></span><br><span class="line">    github.com/micro/<span class="keyword">go</span>-micro v1<span class="number">.15</span><span class="number">.1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">replace (</span><br><span class="line">    <span class="comment">//暂未上传,找本地包代替</span></span><br><span class="line">    github.com/entere/micro-examples =&gt; /Users/entere/github/micro-examples</span><br><span class="line">    <span class="comment">//需要外网访问,找github上的包代替</span></span><br><span class="line">    golang.org/x/crypto =&gt; github.com/golang/crypto latest</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/">Golang</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a href="/2019/11/08/Golang使用go-mod配置加载本地模块/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-go-micro微服务教程二：创建微服务" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
@@ -583,6 +521,68 @@
       
         <p class="article-more-link">
           <a href="/2019/10/29/go-micro微服务教程一：搭建go-micro运行环境/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Golang使用go-mod配置加载本地模块" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/25/Golang使用go-mod配置加载本地模块/" class="article-date">
+  	<time datetime="2019-10-25T15:26:49.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/25/Golang使用go-mod配置加载本地模块/">Golang使用go.mod配置加载本地模块</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如何在当前项目中加载另一个本地正在开发的模块呢？go 提供了replace命令，当我们遇上有些包无法下载（暂未上传或需要外网访问）时，我们可以在mod文件中用replace命令，让程序去指定的地方找代码，如：</p>
+<p>看一下我们的go.mod的配置<br>go.mod</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">module github.com/entere/micro-examples</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="number">1.13</span></span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">    github.com/golang/protobuf v1<span class="number">.3</span><span class="number">.2</span></span><br><span class="line">    github.com/micro/<span class="keyword">go</span>-micro v1<span class="number">.15</span><span class="number">.1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">replace (</span><br><span class="line">    <span class="comment">//暂未上传,找本地包代替</span></span><br><span class="line">    github.com/entere/micro-examples =&gt; /Users/entere/github/micro-examples</span><br><span class="line">    <span class="comment">//需要外网访问,找github上的包代替</span></span><br><span class="line">    golang.org/x/crypto =&gt; github.com/golang/crypto latest</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/">Golang</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a href="/2019/10/25/Golang使用go-mod配置加载本地模块/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
