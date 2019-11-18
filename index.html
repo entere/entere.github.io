@@ -213,7 +213,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>之前系统默认使用了0配置的<code>mdns</code>作为服务发现，本节课我们使用<code>etcd</code>代替<code>mdns</code></p>
+<p>Micro内置了mDNS组播系统，这是一种零依赖的服务注册发现机制，它不依赖其他组件，可以当做本地开发的服务发现方式。本节课我们使用<code>etcd</code>代替<code>mDNS</code>，替换很简单，启动微服务时追加参数–registry etcd或配置环境变量MICRO_REGISTRY=etcd 即可</p>
 </blockquote>
 <h1 id="安装-etcd"><a href="#安装-etcd" class="headerlink" title="安装 etcd"></a>安装 etcd</h1><p>根据<a href="https://github.com/etcd-io/etcd/blob/master/Documentation/dl_build.md" target="_blank" rel="noopener">官方文档</a>进行安装</p>
 <figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/etcd-io/etcd.git</span><br><span class="line">cd etcd</span><br><span class="line">./build</span><br><span class="line">cd bin</span><br><span class="line">cp etcd etcdctl /usr/local/bin</span><br><span class="line"><span class="meta">#</span><span class="bash">或者</span></span><br><span class="line">brew install etcd</span><br><span class="line"><span class="meta">#</span><span class="bash">启动etcd</span></span><br><span class="line">etcd</span><br></pre></td></tr></table></figure>
@@ -277,9 +277,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>本节课的主要目的是实现用户api网关，<a href="http://github.com/entere/micro-examples" target="_blank" rel="noopener">获取本节代码</a></p>
+<p>本节课的主要目的是实现用户api srevices层和micro api网关，<a href="http://github.com/entere/micro-examples" target="_blank" rel="noopener">获取本节代码</a></p>
 </blockquote>
-<h1 id="micro-new-指令生成-api-骨架代码"><a href="#micro-new-指令生成-api-骨架代码" class="headerlink" title="micro new 指令生成 api 骨架代码"></a>micro new 指令生成 api 骨架代码</h1><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd micro-examples</span><br><span class="line">micro new user/api --type=api --alias=user --namespace=io.github.entere --gopath=false</span><br></pre></td></tr></table></figure>
+<h1 id="micro-new-指令生成-api-骨架代码"><a href="#micro-new-指令生成-api-骨架代码" class="headerlink" title="micro new 指令生成 api 骨架代码"></a>micro new 指令生成 api 骨架代码</h1><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd micro-examples/part2</span><br><span class="line">micro new user/api --type=api --alias=user --namespace=io.github.entere --gopath=false</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -340,10 +340,18 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>本示例的目的是用go-micro完成一个用户微服务（srv）<a href="http://github.com/entere/micro-examples" target="_blank" rel="noopener">获取本节代码</a></p>
+<p>本示例的目的是演示一个3层的用户服务架构，<a href="http://github.com/entere/micro-examples" target="_blank" rel="noopener">获取本节代码</a></p>
+</blockquote>
+<p>3层服务架构：micro api-&gt;api service-&gt;backend service</p>
+<blockquote>
+<ul>
+<li>网关  micro api: (localhost:8080) - http访问入口网关</li>
+<li>API层 api service: (io.github.entere.api.user) - 对外暴露的API服务</li>
+<li>服务层 backend service: (io.github.entere.srv.user) - 内网的后台服务<br>本节，我们先实现backend service 以下简称 <code>srv</code></li>
+</ul>
 </blockquote>
 <h1 id="在-定义User原型"><a href="#在-定义User原型" class="headerlink" title="在 定义User原型"></a>在 定义User原型</h1><p>生成微服务骨架代码</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd micro-examples</span><br><span class="line">micro new user/srv --type=srv --alias=user --namespace=io.github.entere --gopath=false</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd micro-examples/part2</span><br><span class="line">micro new user/srv --type=srv --alias=user --namespace=io.github.entere --gopath=false</span><br></pre></td></tr></table></figure>
 <p>修改vi user/srv/proto/user/user.proto中的内容,定义User原型</p>
       
     </div>
